@@ -9,7 +9,7 @@ function App() {
   <div>   
   </div>
     <div>
-     Gabriel Gustavo Goettems
+     Gabriel 
     </div>
   </>
   )
