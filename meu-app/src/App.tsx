@@ -8,7 +8,7 @@ function App() {
   <>
 
     <div>
-     Gabriel Gustavo Goettems
+     Gabriel 
     </div>
   </>
   )
