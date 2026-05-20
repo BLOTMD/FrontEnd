@@ -6,8 +6,7 @@ function App() {
 
    return (
   <>
-  <div>   
-  </div>
+
     <div>
      Gabriel Gustavo Goettems
     </div>
