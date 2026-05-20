@@ -8,7 +8,7 @@ function App() {
   <>
 
     <div>
-     Gabriel 
+     JUANO
     </div>
   </>
   )
