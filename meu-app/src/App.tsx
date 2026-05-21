@@ -1,16 +1,15 @@
 
 import './App.css'
+import Cadastro from './pages/public/register/Cadastro'
+
 
 function App() {
 
 
    return (
   <>
-
     <div>
-
-     JUANO
-        d49efe71eac705e2864befe909a19f2b35215cb6
+      <Cadastro></Cadastro>
     </div>
   </>
   )
