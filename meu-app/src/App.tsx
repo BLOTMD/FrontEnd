@@ -1,17 +1,36 @@
 
 import './App.css'
+import  Login from './pages/public/login/Login';
+import LogoEasyPc from './pages/public/Images/LogoEasyPc.png';
 
 function App() {
 
 
    return (
-  <>
+  <>  
+    <div className='Logo'>
 
-    <div>
+      <image src='src/pages/public/Images/LogoEasyPc.png'></image>
 
-     JUANO
-        d49efe71eac705e2864befe909a19f2b35215cb6
     </div>
+    
+    <div className='senhaelogin'>
+
+      Usuario<p></p>
+
+      <input type="text" placeholder='Digite seu nome'></input>
+
+    </div>
+    <div className='senhaelogin'>
+
+    Senha<p></p>
+
+    <input type="text" placeholder='Digite sua senha'></input>
+
+    </div>
+  
+
+    <Login></Login>
   </>
   )
 }
