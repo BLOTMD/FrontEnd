@@ -49,6 +49,7 @@
     border: none;
     border-radius: 10px;
     font-size: 16px;
+    cursor: pointer;
     
 
 
@@ -58,4 +59,16 @@
 
     background-color: #3731a3;
 
+}
+
+.checkbox{
+
+    width: 250px;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    
 }
