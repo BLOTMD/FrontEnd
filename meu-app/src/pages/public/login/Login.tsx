@@ -1,12 +1,30 @@
+import styles from './Login.module.css'
+import LogoEasyPc from '../Images/LogoEasyPc.png'
 
-
-function login() {
-
+function Login() {
     return (
         <>
-       
+
+            <div className={styles.body}>
+
+                <div className={styles.Login} id="login">
+
+                    <h2>Login</h2>
+
+                        <input type="text" placeholder="Digite seu nome de usuario" className={styles.input} id="usuario" />
+                        <input type="password" placeholder="Digite sua senha" className={styles.input} id="senha" />
+
+                        <button className={styles['botao-entrar']} id="entrar">Entrar</button>
+
+
+                        <div><a href="#">Esqueci minha senha</a></div>
+
+                        <div>Não é cadastrado? <a href="#">Cadastrar</a></div>
+                </div>
+            </div>
+
         </>
-    );
+    )
 }
 
-export default login;
+export default Login
