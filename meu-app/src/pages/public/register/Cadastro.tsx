@@ -8,7 +8,7 @@ function Cadastro() {
       <div className={style.cadastrar}>
         <h2> Cadastro </h2>
 
-        <input type="text" placeholder="Nome Completo" className={style.input} id="" />
+        <input type="text" placeholder="Nome Completo" className={style.input} id="Nome" />
         <input type="email" placeholder="Email" className={style.input} id="Email" />
         <input type="password" placeholder="Senha" className={style.input} id="Senha" />
         <input type="password" placeholder="Confirmar Senha" className={style.input} id="ConfirmarSenha" />
@@ -20,6 +20,9 @@ function Cadastro() {
         <input type="checkbox" placeholder="Termos de Uso" className={style.input} id="TermosdeUso" /> Aceito os <a href="#/termos de uso">Termos de Uso</a>
 
         <button className={style.button}> Cadastrar </button>
+
+        <div className={style.login}>Já tem uma conta? <a href="#/login">Fazer Login</a></div>
+        
       </div>
     </div>
     </>
