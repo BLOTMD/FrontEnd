@@ -1,17 +1,15 @@
-
 import './App.css'
+
 import Cadastro from './pages/public/register/Cadastro'
 import Login from './pages/public/login/Login'
 
 function App() {
 
-
-   return (
-  <>
+  return (
     <div>
-      <Cadastro></Login>
+      <Cadastro />
+      <Login />
     </div>
-  </>
   )
 }
 
