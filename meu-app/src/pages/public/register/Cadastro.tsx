@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./Cadastro.module.css";
 
 function Cadastro() {
+  const [mensagem, setMensagem] = useState("");
   const [usuario, setUsuario] = useState({
     nome: "",
     email: "",
@@ -12,6 +13,7 @@ function Cadastro() {
     masculino: false,
     feminino: false,
     abacaxi: false,
+    Termos: false,
   });
 
   function exibeDados() {
@@ -19,31 +21,33 @@ function Cadastro() {
   }
 
   function validarFormulario() {
+    for (const campo in usuario) {
+      const valor = usuario[campo as keyof typeof usuario];
 
-
-      for (const campo in usuario) {
-        if (
-          typeof usuario [campo as keyof typeof usuario]  === "string" &&
-          usuario [campo as keyof typeof usuario].trim() === ""
-        ) {
-          alert(`O campo ${campo} está vazio`);
-          return;
-        }
-      }
-
-      if (!usuario.masculino && !usuario.feminino && !usuario.abacaxi) {
-        alert("Selecione um gênero");
+      if (typeof valor === "string" && valor.trim() === "") {
+        setMensagem(`O campo ${campo} está vazio`);
         return;
       }
+    }
 
-      if (usuario.senha !== usuario.confirmarsenha) {
-        alert("As senhas não coincidem");
-        return;
-      }
+    if (!usuario.masculino && !usuario.feminino && !usuario.abacaxi) {
+      setMensagem("Selecione um gênero");
+      return;
+    }
 
-      exibeDados();
+    if (!usuario.Termos) {
+      setMensagem("Aceite os termos de uso para cadastrar");
+      return;
+    }
 
-      alert("Cadastro realizado!");
+    if (usuario.senha !== usuario.confirmarsenha) {
+      setMensagem("As senhas não coincidem");
+      return;
+    }
+
+    exibeDados();
+
+    setMensagem("Cadastro realizado!");
   }
 
   return (
@@ -51,6 +55,9 @@ function Cadastro() {
       <div className={style.body}>
         <div className={style.cadastrar}>
           <h2> Cadastro </h2>
+
+          {mensagem && <div className={style.aviso}>{mensagem}</div>}
+
           <input
             type="text"
             placeholder="Nome Completo"
@@ -154,6 +161,10 @@ function Cadastro() {
                 type="checkbox"
                 placeholder="Termos de Uso"
                 className={style.checkbox}
+                checked={usuario.Termos}
+                onChange={(input) =>
+                  setUsuario({ ...usuario, Termos: input.target.checked })
+                }
               />{" "}
               Aceito os <a href="#/termos de uso">Termos de Uso</a>
             </label>
