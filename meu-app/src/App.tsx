@@ -1,7 +1,7 @@
 
 import './App.css'
 import Cadastro from './pages/public/register/Cadastro'
-
+import Login from './pages/public/login/Login'
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
    return (
   <>
     <div>
-      <Cadastro></Cadastro>
+      <Cadastro></Login>
     </div>
   </>
   )
