@@ -31,18 +31,18 @@ function Login()
         
                     <h2>Login</h2>
 
-                        <input type="username" 
-                        placeholder="Digite seu nome de usuario" 
-                        value={user} 
-                        onChange={(html) => 
-                        setUser(html.target.value)} 
-                        className={styles.input} id="usuario" />
+                        <input 
+                            type="text" 
+                            placeholder="Digite seu nome de usuario" 
+                            value={user} 
+                            onChange={(e) => setUser(e.target.value)} 
+                            className={styles.input} id="usuario" />
 
                         <input
                             type="password"
                             placeholder="Digite sua senha"
                             value={senha}
-                            onChange={(html) => setSenha(html.target.value)}
+                            onChange={(e) => setSenha(e.target.value)}
                             className={styles.input}
                             id="senha"
                         />
@@ -52,7 +52,7 @@ function Login()
                         <button onClick={entrar} className={styles['botao-entrar']} id="entrar">Entrar</button>
 
                         <h3><input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
-                        <label for="lembrar">Lembrar-me</label></h3>
+                        <label htmlFor="lembrar">Lembrar-me</label></h3>
 
                         <div><a href="#">Esqueci minha senha</a></div>
 
