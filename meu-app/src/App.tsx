@@ -1,18 +1,12 @@
 
 import './App.css'
+import Login from './pages/public/login/Login'
 
 function App() {
-
-
-   return (
-  <>
-
+  return (
     <div>
-
-     JUANO
-        d49efe71eac705e2864befe909a19f2b35215cb6
+      <Login />
     </div>
-  </>
   )
 }
 
