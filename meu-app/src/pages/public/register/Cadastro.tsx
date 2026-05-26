@@ -2,25 +2,48 @@ import { useState } from "react";
 import style from "./Cadastro.module.css";
 
 function Cadastro() {
-  const [Nome, setNome] = useState("Gabriel");
-  const [Email, setEmail] = useState("test@test.com");
-  const [Senha, setSenha] = useState("12345678");
-  const [ConfirmarSenha, setConfirmarSenha] = useState("12345678");
-  const [DataNascimento, setDataNascimento] = useState("15/10/2000");
-  const [Telefone, setTelefone] = useState("499125788");
-  const [Masculino, setMasculino] = useState("");
-  const [Feminino, setFeminino] = useState("");
-  const [Abacaxi, setAbacaxi] = useState("");
+  const [usuario, setUsuario] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+    confirmarsenha: "",
+    dataNascimento: "",
+    telefone: "",
+    masculino: false,
+    feminino: false,
+    abacaxi: false,
+  });
 
   function exibeDados() {
-    console.log(Email);
-    console.log(Senha);
-    console.log(ConfirmarSenha);
-    console.log(DataNascimento);
-    console.log(Telefone);
-    console.log(Masculino);
-    console.log(Feminino);
-    console.log(Abacaxi);
+    console.log(usuario);
+  }
+
+  function validarFormulario() {
+
+
+      for (const campo in usuario) {
+        if (
+          typeof usuario [campo as keyof typeof usuario]  === "string" &&
+          usuario [campo as keyof typeof usuario].trim() === ""
+        ) {
+          alert(`O campo ${campo} está vazio`);
+          return;
+        }
+      }
+
+      if (!usuario.masculino && !usuario.feminino && !usuario.abacaxi) {
+        alert("Selecione um gênero");
+        return;
+      }
+
+      if (usuario.senha !== usuario.confirmarsenha) {
+        alert("As senhas não coincidem");
+        return;
+      }
+
+      exibeDados();
+
+      alert("Cadastro realizado!");
   }
 
   return (
@@ -32,74 +55,111 @@ function Cadastro() {
             type="text"
             placeholder="Nome Completo"
             className={style.input}
-            value={Nome}
-            onChange={(input) => setNome(input.target.value)}
+            value={usuario.nome}
+            onChange={(input) =>
+              setUsuario({ ...usuario, nome: input.target.value })
+            }
           />
           <input
             type="email"
             placeholder="Email"
             className={style.input}
-            value={Email}
-            onChange={(input) => setEmail(input.target.value)}
+            value={usuario.email}
+            onChange={(input) =>
+              setUsuario({ ...usuario, email: input.target.value })
+            }
           />
           <input
             type="password"
             placeholder="Senha"
             className={style.input}
-            value={Senha}
-            onChange={(input) => setSenha(input.target.value)}
+            value={usuario.senha}
+            onChange={(input) =>
+              setUsuario({ ...usuario, senha: input.target.value })
+            }
           />
           <input
             type="password"
             placeholder="Confirmar Senha"
             className={style.input}
-            value={ConfirmarSenha}
-            onChange={(input) => setConfirmarSenha(input.target.value)}
+            value={usuario.confirmarsenha}
+            onChange={(input) =>
+              setUsuario({ ...usuario, confirmarsenha: input.target.value })
+            }
           />
           <input
             type="date"
             placeholder="Data de Nascimento"
             className={style.input}
-            value={DataNascimento}
-            onChange={(input) => setDataNascimento(input.target.value)}
+            value={usuario.dataNascimento}
+            onChange={(input) =>
+              setUsuario({ ...usuario, dataNascimento: input.target.value })
+            }
           />
           <input
             type="number"
             placeholder="Telefone"
             className={style.input}
-            value={Telefone}
-            onChange={(input) => setTelefone(input.target.value)}
+            value={usuario.telefone}
+            onChange={(input) =>
+              setUsuario({ ...usuario, telefone: input.target.value })
+            }
           />
-          <input
-            type="checkbox"
-            placeholder="Gênero"
-            className={style.checkbox}
-            value={Masculino}
-             onChange={(input) => setMasculino(input.target.value)}
-          />
-          Masculino
-          <input
-            type="checkbox"
-            placeholder="Gênero"
-            className={style.checkbox}
-            value ={Feminino}
-            onChange={(input) => setFeminino(input.target.value)}     
-          />
-          Feminino
-          <input
-            type="checkbox"
-            placeholder="Gênero"
-            className={style.checkbox}
-            value="Abacaxi" onChange={(input) => setAbacaxi(input.target.value)}
-          />
-          Abacaxi
-          <input
-            type="checkbox"
-            placeholder="Termos de Uso"
-            className={style.input}
-          />{" "}
-          Aceito os <a href="#/termos de uso">Termos de Uso</a>
-          <button className={style.button} onClick={exibeDados}>
+          <div>
+            <label className={style.checkboxGenero}>
+              <input
+                type="checkbox"
+                placeholder="Gênero"
+                className={style.checkbox}
+                checked={usuario.masculino}
+                onChange={(input) =>
+                  setUsuario({ ...usuario, masculino: input.target.checked })
+                }
+              />
+              Masculino
+            </label>
+          </div>
+          <div>
+            <label className={style.checkboxGenero}>
+              <input
+                type="checkbox"
+                placeholder="Gênero"
+                className={style.checkbox}
+                checked={usuario.feminino}
+                onChange={(input) =>
+                  setUsuario({ ...usuario, feminino: input.target.checked })
+                }
+              />
+              Feminino
+            </label>
+          </div>
+          <div>
+            <label className={style.checkboxGenero}>
+              <input
+                type="checkbox"
+                placeholder="Gênero"
+                className={style.checkbox}
+                checked={usuario.abacaxi}
+                onChange={(input) =>
+                  setUsuario({ ...usuario, abacaxi: input.target.checked })
+                }
+              />
+              Abacaxi
+            </label>
+          </div>
+
+          <div>
+            <label className={style.checkboxGenero}>
+              <input
+                type="checkbox"
+                placeholder="Termos de Uso"
+                className={style.checkbox}
+              />{" "}
+              Aceito os <a href="#/termos de uso">Termos de Uso</a>
+            </label>
+          </div>
+
+          <button className={style.button} onClick={validarFormulario}>
             Cadastrar
           </button>
           <div className={style.login}>

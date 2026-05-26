@@ -61,14 +61,12 @@
 
 }
 
-.checkbox{
+.checkboxGenero{
 
-    width: 250px;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px;
-    border-radius: 10px;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    
+    gap: 8px;
+    color: white;
+    margin-top: 10px;
 }
+
