@@ -65,3 +65,8 @@
     background-color: #3731a3;
 
 }
+.erro {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}   

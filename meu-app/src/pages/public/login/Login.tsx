@@ -4,32 +4,56 @@ import { useState } from 'react';
 
 function Login() 
     {
-    const [user, setUser] = useState("user1234");
+    const [user, setUser] = useState("");
+    const [senha, setSenha] = useState("");
+    const [erro, setErro] = useState("");
 
-    function exibeUser() {
-        console.log(user);
+    function entrar() {
+    if (user !== "user1234" || senha !== "1234") {
+        setErro("Usuário ou senha inválidos");
+        return;
     }
+
+    setErro("");
+    console.log("Login correto");
+}
     
     function getUser(input: HTMLInputElement) {
         setUser(input.value);
     }
-
+    
+    
     return (
         <>
 
             <div className={styles.body}>
 
                 <div className={styles.Login} id="login">
-
+        
                     <h2>Login</h2>
 
-                        <input type="username" placeholder="Digite seu nome de usuario" value={user} onChange={(x) => getUser(x.target)} 
+                        <input type="username" 
+                        placeholder="Digite seu nome de usuario" 
+                        value={user} 
+                        onChange={(html) => 
+                        setUser(html.target.value)} 
                         className={styles.input} id="usuario" />
 
-                        <input type="password" placeholder="Digite sua senha" className={styles.input} id="senha" />
+                        <input
+                            type="password"
+                            placeholder="Digite sua senha"
+                            value={senha}
+                            onChange={(html) => setSenha(html.target.value)}
+                            className={styles.input}
+                            id="senha"
+                        />
 
-                        <button onClick={exibeUser} className={styles['botao-entrar']} id="entrar">Entrar</button>
+                        {erro && <p className={styles.erro}>{erro}</p>}
 
+                        <button onClick={entrar} className={styles['botao-entrar']} id="entrar">Entrar</button>
+
+                        <h3><input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
+                        <label for="lembrar">Lembrar-me</label></h3>
 
                         <div><a href="#">Esqueci minha senha</a></div>
 
