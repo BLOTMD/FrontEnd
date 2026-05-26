@@ -22,7 +22,6 @@ function Login()
         setUser(input.value);
     }
     
-    
     return (
         <>
 

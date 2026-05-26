@@ -6,14 +6,10 @@
     align-items: center;   
     height: 100vh;
     font-family: Arial;
-
-
-
 }
 
 
 .Login {
-    
     padding:30px;
     border-radius: 15px;
     width: 300px;
@@ -22,21 +18,15 @@
     flex-direction: column;
     border: 1px solid #4f46e5;
     background-color: #2e2e2e;
-
-
 }
 
 .h{
-    
     color: white;
     text-align: center;
     font-size: 20px;
-
-
 }   
 
 .input{
-
     width: 250px;
     padding: 10px;
     margin-top: 10px;
@@ -44,12 +34,9 @@
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-
-
 }
 
 .botao-entrar {
-
     width: 280px;
     padding: 12px;
     margin-top: 20px;
@@ -57,13 +44,10 @@
     border:none;
     border-radius: 10px;
     font-size: 16px;
-
 }
 
 .botao-entrar:hover{
-
     background-color: #3731a3;
-
 }
 .erro {
   color: red;
