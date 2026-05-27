@@ -54,3 +54,9 @@
   font-size: 14px;
   margin-top: 10px;
 }   
+
+.link {
+  color: #4f46e5;
+  text-decoration: none;
+  cursor: pointer;
+}
