@@ -3,6 +3,10 @@ import style from "./Cadastro.module.css";
 import { useNavigate } from "react-router-dom";
 
 function Cadastro() {
+
+   const Navigate = useNavigate();
+
+
   const [mensagem, setMensagem] = useState("");
   const [usuario, setUsuario] = useState({
     nome: "",
@@ -170,7 +174,9 @@ function ExibirLogin() {
                   setUsuario({ ...usuario, Termos: input.target.checked })
                 }
               />{" "}
-              Aceito os <a href="#/termos de uso">Termos de Uso</a>
+              Aceito os <a className={style.link} href="#/termos de uso">
+                Termos de Uso
+              </a>
             </label>
           </div>
 
@@ -178,7 +184,9 @@ function ExibirLogin() {
             Cadastrar
           </button>
           <div className={style.login}>
-            Já tem uma conta? <a href="#/login">Fazer Login</a>
+            Já tem uma conta? <a className={style.link} onClick={() => Navigate("/Login")}>
+              Fazer Login
+            </a>
           </div>
         </div>
       </div>
