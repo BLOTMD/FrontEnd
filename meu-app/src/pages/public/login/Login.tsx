@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-import styles from './Login.module.css'
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function Login() 
 
-    {
-    const [user, setUser] = useState("");
-    const [senha, setSenha] = useState("");
-    const [erro, setErro] = useState("");
-=======
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { useState } from "react";
@@ -17,7 +7,6 @@ import { useState } from "react";
 function Login() {
 
   const Navigate = useNavigate();
->>>>>>> 47dad46b184a97dca7bee4e62e19e63289551479
 
   const [user, setUser] = useState("");
   const [senha, setSenha] = useState("");
@@ -31,16 +20,11 @@ function Login() {
     }
 
     setErro("");
-    console.log("Login correto");
-<<<<<<< HEAD
-}
+    console.log("Login correto");}
 const navigation = useNavigate();
     
     return (
         <>
-=======
-  }
->>>>>>> 47dad46b184a97dca7bee4e62e19e63289551479
 
   return (
     <>
