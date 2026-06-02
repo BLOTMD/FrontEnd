@@ -42,35 +42,34 @@ function Cadastro() {
     Termos: false,
   });
 
- function validarFormulario() {
-  for (const campo in usuario) {
-    const valor = usuario[campo as keyof typeof usuario];
+  function validarFormulario() {
+    for (const campo in usuario) {
+      const valor = usuario[campo as keyof typeof usuario];
 
-    if (typeof valor === "string" && valor.trim() === "") {
-      setMensagem(`O campo ${campo} está vazio`);
+      if (typeof valor === "string" && valor.trim() === "") {
+        setMensagem(`O campo ${campo} está vazio`);
+        return false;
+      }
+    }
+
+    if (!usuario.masculino && !usuario.feminino && !usuario.abacaxi) {
+      setMensagem("Selecione um gênero");
       return false;
     }
+
+    if (!usuario.Termos) {
+      setMensagem("Aceite os termos de uso para cadastrar");
+      return false;
+    }
+
+    if (usuario.senha !== usuario.confirmarsenha) {
+      setMensagem("As senhas não coincidem");
+      return false;
+    }
+
+    setMensagem(""); // limpa mensagens antigas
+    return true;
   }
-
-  if (!usuario.masculino && !usuario.feminino && !usuario.abacaxi) {
-    setMensagem("Selecione um gênero");
-    return false;
-  }
-
-  if (!usuario.Termos) {
-    setMensagem("Aceite os termos de uso para cadastrar");
-    return false;
-  }
-
-  if (usuario.senha !== usuario.confirmarsenha) {
-    setMensagem("As senhas não coincidem");
-    return false;
-  }
-
-  setMensagem(""); // limpa mensagens antigas
-  return true;
-}
-
 
   return (
     <>
