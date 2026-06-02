@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+
+import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/public/login/Login';
+import Cadastro from './pages/public/register/Cadastro';
+
+function App() {
+
+
+   return (
+  <>
+  <div>
+
+    <Routes>
+      <Route path="/cadastro" element={<Cadastro />} />
+      <Route path="/" element={<Login />} />
+    </Routes>
+
+=======
 import { Routes } from 'react-router-dom'
 import './App.css'
 import Cadastro from './pages/public/register/Cadastro'
@@ -20,7 +40,10 @@ function App() {
 
 
 
+>>>>>>> 47dad46b184a97dca7bee4e62e19e63289551479
     </div>
+
+  </>
   )
 }
 

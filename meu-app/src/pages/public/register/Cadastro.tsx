@@ -71,6 +71,7 @@ function Cadastro() {
   return true;
 }
 
+
   return (
     <>
       <div className={style.body}>
