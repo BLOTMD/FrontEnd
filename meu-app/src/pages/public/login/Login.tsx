@@ -1,106 +1,98 @@
-
-
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { Service } from "../../../components/services/services";
 
 function Login() {
-
-  const Navigate = useNavigate();
-
   const [user, setUser] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  function entrar() {
-    
-    if (user !== "user1234" || senha !== "1234") {
-      setErro("Usuário ou senha inválidos");
-      return;
-    }
-
+  async function efetuarLogin() {
+    setLoading(true);
     setErro("");
-    console.log("Login correto");}
-const navigation = useNavigate();
-    
-    return (
-        <>
+
+    try {
+      const sucesso = await Service.GET<{ success?: boolean; token?: string }>(
+        "efeturarLogin",
+        { user, senha }
+      );
+
+      if (sucesso && (sucesso as any).success) {
+        if ((sucesso as any).token) {
+          localStorage.setItem("token", (sucesso as any).token);
+        }
+        navigate("/private");
+        return;
+      }
+
+      setErro("Usuário ou senha inválidos");
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setErro("Erro ao conectar com o servidor");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <>
-      <div className={styles.body}>
-        <div className={styles.Login} id="login">
-          <h2>Login</h2>
+    <div className={styles.body}>
+      <div className={styles.Login} id="login">
+        <h2>Login</h2>
 
+        <input
+          type="text"
+          placeholder="Digite seu nome de usuario"
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+          className={styles.input}
+          id="usuario"
+        />
+
+        <input
+          type="password"
+          placeholder="Digite sua senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          className={styles.input}
+          id="senha"
+        />
+
+        {erro && <p className={styles.erro}>{erro}</p>}
+
+        <button
+          onClick={efetuarLogin}
+          className={styles["botao-entrar"]}
+          id="entrar"
+          disabled={loading}
+        >
+          {loading ? "Entrando..." : "Entrar"}
+        </button>
+
+        <h3>
           <input
-            type="text"
-            placeholder="Digite seu nome de usuario"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            className={styles.input}
-            id="usuario"
+            type="checkbox"
+            id="lembrar"
+            name="lembrar"
+            value="Lembrar"
           />
+          <label htmlFor="lembrar">Lembrar-me</label>
+        </h3>
 
-          <input
-            type="password"
-            placeholder="Digite sua senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            className={styles.input}
-            id="senha"
-          />
+        <div>
+          <a className={styles.link} onClick={() => navigate("/EsqueciSenha")}>
+            Esqueci minha senha
+          </a>
+        </div>
 
-          {erro && <p className={styles.erro}>{erro}</p>}
-
-         
-          <button
-            onClick={entrar}
-            className={styles["botao-entrar"]}
-            id="entrar"
-          >
-            Entrar
-          </button>
-          
-          
-          <h3>
-            <input
-              type="checkbox"
-              id="lembrar"
-              name="lembrar"
-              value="Lembrar"
-            />
-            <label htmlFor="lembrar">Lembrar-me</label>
-          </h3>
-
-          <div>
-            <a className={styles.link} onClick={() => Navigate("/EsqueciSenha")}>
-              Esqueci minha senha
-            </a>
-          </div>
-
-<<<<<<< HEAD
-                        <h3><input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
-                        <label htmlFor="lembrar">Lembrar-me</label></h3>
-
-                        <div><a href="#">Esqueci minha senha</a></div>
-
-                        <div>Não é cadastrado?</div> <div><a href="#">Cadastrar</a></div>
-                </div>
-            </div>
-
-        </>
-    )
-=======
-          <div>
-            Não é cadastrado? <a className={styles.link} onClick={() => Navigate("/Cadastro")}>
-              Cadastrar
-            </a>
-          </div>
+        <div>
+          Não é cadastrado? <a href="#">Cadastrar</a>
         </div>
       </div>
-    </>
+    </div>
   );
->>>>>>> 47dad46b184a97dca7bee4e62e19e63289551479
 }
 
 export default Login;
