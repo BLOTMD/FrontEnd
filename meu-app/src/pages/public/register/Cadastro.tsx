@@ -1,11 +1,32 @@
 import { useState } from "react";
 import style from "./Cadastro.module.css";
 import { useNavigate } from "react-router-dom";
+import { Service } from "../../../component/Service";
 
 function Cadastro() {
+  async function fazerCadastro() {
+    try {
+      const sucesso = await Service.GET("EfetuarCadastro", {
+        Nome: usuario.nome,
+        Email: usuario.email,
+        Senha: usuario.senha,
+        DataNascimento: usuario.dataNascimento,
+        Telefone: usuario.telefone,
+        Masculino: usuario.masculino,
+        Feminino: usuario.feminino,
+        Abacaxi: usuario.abacaxi,
+        Termos: usuario.Termos,
+      });
 
-   const Navigate = useNavigate();
-
+      if (sucesso != null) {
+        console.log("Cadastro feito com sucesso");
+        Navigate("/Login");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer cadastro:", error);
+    }
+  }
+  const Navigate = useNavigate();
 
   const [mensagem, setMensagem] = useState("");
   const [usuario, setUsuario] = useState({
@@ -21,43 +42,35 @@ function Cadastro() {
     Termos: false,
   });
 
-  function exibeDados() {
-    console.log(usuario);
-  }
-
   function validarFormulario() {
     for (const campo in usuario) {
       const valor = usuario[campo as keyof typeof usuario];
 
       if (typeof valor === "string" && valor.trim() === "") {
         setMensagem(`O campo ${campo} está vazio`);
-        return;
+        return false;
       }
     }
 
     if (!usuario.masculino && !usuario.feminino && !usuario.abacaxi) {
       setMensagem("Selecione um gênero");
-      return;
+      return false;
     }
 
     if (!usuario.Termos) {
       setMensagem("Aceite os termos de uso para cadastrar");
-      return;
+      return false;
     }
 
     if (usuario.senha !== usuario.confirmarsenha) {
       setMensagem("As senhas não coincidem");
-      return;
+      return false;
     }
 
-    exibeDados();
-
-    setMensagem("Cadastro realizado!");
+    setMensagem(""); // limpa mensagens antigas
+    return true;
   }
-const navigation = useNavigate();
-function ExibirLogin() {
-    navigation("/login");
-}
+
   return (
     <>
       <div className={style.body}>
@@ -174,17 +187,26 @@ function ExibirLogin() {
                   setUsuario({ ...usuario, Termos: input.target.checked })
                 }
               />{" "}
-              Aceito os <a className={style.link} href="#/termos de uso">
+              Aceito os{" "}
+              <a className={style.link} href="#/termos de uso">
                 Termos de Uso
               </a>
             </label>
           </div>
 
-          <button className={style.button} onClick={validarFormulario}>
+          <button
+            className={style.button}
+            onClick={async () => {
+              if (validarFormulario()) {
+                await fazerCadastro();
+              }
+            }}
+          >
             Cadastrar
           </button>
           <div className={style.login}>
-            Já tem uma conta? <a className={style.link} onClick={() => Navigate("/Login")}>
+            Já tem uma conta?{" "}
+            <a className={style.link} onClick={() => Navigate("/Login")}>
               Fazer Login
             </a>
           </div>
