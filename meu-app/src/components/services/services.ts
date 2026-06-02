@@ -47,7 +47,7 @@ export const Service = {
     })
     return handleResponse<TResponse>(res)
   },
-
+  
   // POST — parâmetros vão no corpo (body)
   async POST<TBody, TResponse>(
     path: string,

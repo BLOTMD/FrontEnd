@@ -15,11 +15,12 @@ function Login() {
     setErro("");
 
     try {
-      const sucesso = await Service.GET<{ success?: boolean; token?: string }>(
-        "efeturarLogin",
-        { user, senha }
-      );
-
+      const sucesso = await Service.POST("efetuarlogin", {
+        user: user,
+        senha: senha
+      });
+      
+      console.log("Resposta de login:", sucesso);
       if (sucesso && (sucesso as any).success) {
         if ((sucesso as any).token) {
           localStorage.setItem("token", (sucesso as any).token);
@@ -29,6 +30,7 @@ function Login() {
       }
 
       setErro("Usuário ou senha inválidos");
+      console.error("Resposta de login sem sucesso:", sucesso);
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setErro("Erro ao conectar com o servidor");
