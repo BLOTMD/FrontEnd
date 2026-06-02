@@ -15,26 +15,23 @@ function Login() {
     setErro("");
 
     try {
-      const sucesso = await Service.GET<{ success?: boolean; token?: string }>(
-        "efeturarLogin",
-        { user, senha }
-      );
+      const sucesso = await Service.POST("efetuarLogin", { user, senha });
 
-      if (sucesso && (sucesso as any).success) {
-        if ((sucesso as any).token) {
-          localStorage.setItem("token", (sucesso as any).token);
-        }
-        navigate("/private");
+      setLoading(false);
+
+      if (sucesso != null) {
+        navigate("/Home");
         return;
       }
 
       setErro("Usuário ou senha inválidos");
+      
+
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setErro("Erro ao conectar com o servidor");
-    } finally {
       setLoading(false);
-    }
+    } 
   }
 
   return (
@@ -72,12 +69,7 @@ function Login() {
         </button>
 
         <h3>
-          <input
-            type="checkbox"
-            id="lembrar"
-            name="lembrar"
-            value="Lembrar"
-          />
+          <input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
           <label htmlFor="lembrar">Lembrar-me</label>
         </h3>
 
