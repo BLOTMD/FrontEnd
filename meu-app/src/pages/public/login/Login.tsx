@@ -18,6 +18,7 @@ function Login() {
     setErro("");
 
     try {
+<<<<<<< HEAD
 
       const parametros:LoginInterface = {
         "login": user,
@@ -33,12 +34,25 @@ function Login() {
       } else {
         setErro("Usuário ou senha inválidos");
       }
+=======
+      const sucesso = await Service.POST("efetuarLogin", { user, senha });
+
+      setLoading(false);
+
+      if (sucesso != null) {
+        navigate("/Home");
+        return;
+      }
+
+      setErro("Usuário ou senha inválidos");
+      
+
+>>>>>>> 4957e691dcf9968b671cc51bf959220729c6e3fb
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setErro("Erro ao conectar com o servidor");
-    } finally {
       setLoading(false);
-    }
+    } 
   }
 
   return (
@@ -73,7 +87,11 @@ function Login() {
         </button>
 
         <h3>
+<<<<<<< HEAD
           <input type="checkbox" id="lembrar" />
+=======
+          <input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
+>>>>>>> 4957e691dcf9968b671cc51bf959220729c6e3fb
           <label htmlFor="lembrar">Lembrar-me</label>
         </h3>
 
