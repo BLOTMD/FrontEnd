@@ -76,3 +76,19 @@
 .card:hover {
   background: #4f46e5;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.informacoes {
+  background: #2a2a2a;
+  padding: 30px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 1100px;
+  border: 1px solid #281fca;
+  box-shadow: 0 4px 8px rgba(65, 58, 199, 0.2);
+  margin: 50px auto;
+  text-align: center;
+}

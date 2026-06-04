@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { Service } from "../../../components/services/services";
-import type { Login } from "../../../interfaces/Login";
+import type { LoginInterface } from "../../../interfaces/Login";
 
 function Login() {
   const [user, setUser] = useState("");
@@ -16,7 +16,7 @@ function Login() {
     setErro("");
 
     try {
-      const parametros: Login = {
+      const parametros: LoginInterface = {
         "user": user,
         "senha": senha,
       };
