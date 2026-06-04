@@ -8,7 +8,7 @@ function Home() {
 
         <nav>
           <a href="#">Início</a>
-          <a href="#">Produtos</a>
+          <a href="#">Quem Somos</a>
           <a href="#">Serviços</a>
           <a href="#">Contato</a>
         </nav>

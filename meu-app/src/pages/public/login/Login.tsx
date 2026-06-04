@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { Service } from "../../../components/services/services";
+import type { Login } from "../../../interfaces/Login";
 
 function Login() {
   const [user, setUser] = useState("");
@@ -15,7 +16,14 @@ function Login() {
     setErro("");
 
     try {
-      const sucesso = await Service.POST("efetuarLogin", { user, senha });
+      const parametros: Login = {
+        "user": user,
+        "senha": senha,
+      };
+
+      const sucesso = await Service.POST("efetuarLogin", parametros);
+
+
 
       setLoading(false);
 
@@ -25,13 +33,11 @@ function Login() {
       }
 
       setErro("Usuário ou senha inválidos");
-      
-
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setErro("Erro ao conectar com o servidor");
       setLoading(false);
-    } 
+    }
   }
 
   return (
