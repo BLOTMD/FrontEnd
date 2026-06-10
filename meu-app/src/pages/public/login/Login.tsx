@@ -3,6 +3,7 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { Service } from "../../../components/services/services";
 import type { LoginInterface } from "../../../interfaces/Login";
+import Button from "../../../component/button/Button";
 
 function Login() {
   const [user, setUser] = useState("");
@@ -65,14 +66,7 @@ function Login() {
 
         {erro && <p className={styles.erro}>{erro}</p>}
 
-        <button
-          onClick={efetuarLogin}
-          className={styles["botao-entrar"]}
-          id="entrar"
-          disabled={loading}
-        >
-          {loading ? "Entrando..." : "Entrar"}
-        </button>
+      <Button Click={efetuarLogin} texto={loading ? "Entrando..." : "Entrar"} ></Button>
 
         <h3>
           <input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
