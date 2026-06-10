@@ -1,7 +1,10 @@
 import styles from "./Home.module.css";
 import logo from "../Images/LogoEasyPCesquematizada.png";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.home}>
       <header className={styles.header}>
@@ -21,7 +24,9 @@ function Home() {
 
           <p>Peças, computadores gamer com os melhores preços.</p>
 
-          <button className={styles.AcessoButton}>Acessar</button>
+          <button className={styles.AcessoButton} onClick={() => navigate("/Loja")}>
+            Acessar
+          </button>
         </div>
       </section>
 
