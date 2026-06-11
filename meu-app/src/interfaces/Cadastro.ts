@@ -5,8 +5,6 @@ export interface CadastroInterface {
   confirmarSenha: string;
   DataNascimento: string;
   Telefone: string;
-  masculino: boolean;
-  feminino: boolean;
-  abacaxi: boolean;
+  genero: string;
   termos: boolean;
 }
