@@ -20,11 +20,11 @@ function Loja() {
       >
         <h2>EasyPC</h2>
 
-        <a href="#">🏠 Início</a>
-        <a href="#">🖥️ Monte seu PC</a>
-        <a href="#">🔧 Peças</a>
-        <a href="#">🛒 Carrinho</a>
-        <a href="#">👤 Perfil</a>
+        <a href="#">Início</a>
+        <a href="#">Monte seu PC</a>
+        <a href="#">Peças</a>
+        <a href="#">Carrinho</a>
+        <a href="#">Perfil</a>
       </aside>
 
       <main className={styles.conteudo}>
@@ -43,32 +43,32 @@ function Loja() {
 
         <div className={styles.cards}>
           <div className={styles.card}>
-            <h3>🖥️ Placas de Vídeo</h3>
+            <h3> Placas de Vídeo</h3>
             <p>RTX e Radeon.</p>
           </div>
 
           <div className={styles.card}>
-            <h3>⚡ Processadores</h3>
+            <h3> Processadores</h3>
             <p>Intel e AMD.</p>
           </div>
 
           <div className={styles.card}>
-            <h3>💾 Memórias RAM</h3>
+            <h3> Memórias RAM</h3>
             <p>DDR4 e DDR5.</p>
           </div>
 
           <div className={styles.card}>
-            <h3>🚀 SSDs</h3>
+            <h3> SSDs</h3>
             <p>NVMe e SATA.</p>
           </div>
 
           <div className={styles.card}>
-            <h3>🔌 Fontes</h3>
+            <h3> Fontes</h3>
             <p>80 Plus Bronze, Gold e Platinum.</p>
           </div>
 
           <div className={styles.card}>
-            <h3>🧩 Placas-Mãe</h3>
+            <h3> Placas-Mãe</h3>
             <p>Intel e AMD.</p>
           </div>
         </div>
