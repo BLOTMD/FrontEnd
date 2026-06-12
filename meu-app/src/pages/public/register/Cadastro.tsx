@@ -25,7 +25,7 @@ function Cadastro() {
     const sucesso = await Service.POST("EfetuarCadastro", usuario);
 
     if (sucesso) {
-      navigate("/Login");
+      navigate("/login");
     }
   } catch (error) {
     setMensagem("Erro ao realizar cadastro");
@@ -152,7 +152,7 @@ function Cadastro() {
 
         <div className={style.login}>
           Já tem conta?{" "}
-          <a className={style.link} onClick={() => navigate("/Login")}>
+          <a className={style.link} onClick={() => navigate("/login")}>
             Fazer Login
           </a>
         </div>

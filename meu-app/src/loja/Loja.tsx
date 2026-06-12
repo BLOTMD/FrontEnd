@@ -1,79 +1,76 @@
-import { useState } from "react";
-import styles from "./Loja.module.css";
+import { useMemo, useState } from "react";
+import { useCart } from "../context/CartContext";
+import { products } from "../data/products";
+import styles from "./loja.module.css";
 
 function Loja() {
-  const [menuAberto, setMenuAberto] = useState(false);
+  const [search, setSearch] = useState("");
+  const { addToCart, cart } = useCart();
+
+  const filteredProducts = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+
+    if (!normalizedSearch) return products;
+
+    return products.filter((product) => {
+      const productText = `${product.name} ${product.brand} ${product.category}`;
+
+      return productText.toLowerCase().includes(normalizedSearch);
+    });
+  }, [search]);
+
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className={styles.loja}>
-      <button
-        className={styles.menuButton}
-        onClick={() => setMenuAberto(!menuAberto)}
-      >
-        ☰
-      </button>
-
-      <aside
-        className={`${styles.sidebar} ${
-          menuAberto ? styles.aberto : ""
-        }`}
-      >
-        <h2>EasyPC</h2>
-
-        <a href="#">Início</a>
-        <a href="#">Monte seu PC</a>
-        <a href="#">Peças</a>
-        <a href="#">Carrinho</a>
-        <a href="#">Perfil</a>
-      </aside>
-
-      <main className={styles.conteudo}>
-        <h1>Bem-vindo à EasyPC</h1>
-
-        <p className={styles.subtitulo}>
-          Escolha peças, monte seu computador e encontre os melhores componentes.
-        </p>
-
-        <div className={styles.pesquisa}>
-          <input
-            type="text"
-            placeholder="Pesquisar peças..."
-          />
+    <section className={styles.loja}>
+      <header className={styles.header}>
+        <div>
+          <h1>Loja EasyPC</h1>
+          <p>Escolha pecas para montar seu computador.</p>
         </div>
 
-        <div className={styles.cards}>
-          <div className={styles.card}>
-            <h3> Placas de Vídeo</h3>
-            <p>RTX e Radeon.</p>
-          </div>
+        <strong className={styles.cartCount}>{totalItems} no carrinho</strong>
+      </header>
 
-          <div className={styles.card}>
-            <h3> Processadores</h3>
-            <p>Intel e AMD.</p>
-          </div>
+      <label className={styles.search}>
+        <span>Pesquisar</span>
+        <input
+          type="search"
+          placeholder="Nome, marca ou categoria"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+      </label>
 
-          <div className={styles.card}>
-            <h3> Memórias RAM</h3>
-            <p>DDR4 e DDR5.</p>
-          </div>
+      <div className={styles.grid}>
+        {filteredProducts.map((product) => (
+          <article className={styles.card} key={product.id}>
+            <img src={product.image} alt={product.name} />
 
-          <div className={styles.card}>
-            <h3> SSDs</h3>
-            <p>NVMe e SATA.</p>
-          </div>
+            <div className={styles.cardBody}>
+              <span className={styles.category}>{product.category}</span>
+              <h2>{product.name}</h2>
+              <p>{product.brand}</p>
 
-          <div className={styles.card}>
-            <h3> Fontes</h3>
-            <p>80 Plus Bronze, Gold e Platinum.</p>
-          </div>
+              <strong>
+                {product.price.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </strong>
 
-          <div className={styles.card}>
-            <h3> Placas-Mãe</h3>
-            <p>Intel e AMD.</p>
-          </div>
-        </div>
-      </main>
-    </div>
+              <button type="button" onClick={() => addToCart(product.id)}>
+                Adicionar ao carrinho
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {filteredProducts.length === 0 && (
+        <p className={styles.empty}>Nenhum produto encontrado.</p>
+      )}
+    </section>
   );
 }
 

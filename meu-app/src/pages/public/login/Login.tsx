@@ -29,7 +29,7 @@ function Login() {
       setLoading(false);
 
       if (sucesso != null) {
-        navigate("/Home");
+        navigate("/home");
         return;
       }
 

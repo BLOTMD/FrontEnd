@@ -24,7 +24,7 @@ function Home() {
 
           <p>Peças, computadores gamer com os melhores preços.</p>
 
-          <button className={styles.AcessoButton} onClick={() => navigate("/Loja")}>
+          <button className={styles.AcessoButton} onClick={() => navigate("/loja")}>
             Acessar
           </button>
         </div>
