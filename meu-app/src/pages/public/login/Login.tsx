@@ -18,7 +18,7 @@ function Login() {
 
     try {
       const parametros: LoginInterface = {
-        "login": user,
+        "user": user,
         "senha": senha,
       };
 
