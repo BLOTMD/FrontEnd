@@ -2,15 +2,14 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { Service } from "../../../components/services/services";
-import type { LoginInterface } from "../../../interfaces/login";
-import type { RetornoInterface } from "../../../interfaces/Retorno";
+import type { LoginInterface } from "../../../interfaces/Login";
+import Button from "../../../component/button/Button";
 
 function Login() {
   const [user, setUser] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   async function efetuarLogin() {
@@ -18,54 +17,42 @@ function Login() {
     setErro("");
 
     try {
-<<<<<<< HEAD
-
-      const parametros:LoginInterface = {
-        "login": user,
-        "senha": senha
+      const parametros: LoginInterface = {
+        "user": user,
+        "senha": senha,
       };
-      const respostaDoServidor:RetornoInterface = await Service.POST("efetuarLogin", parametros);
-        
-      console.log(respostaDoServidor);
 
-      if (respostaDoServidor) {
-        console.log("Login realizado com sucesso");
-        navigate("/Home");
-      } else {
-        setErro("Usuário ou senha inválidos");
-      }
-=======
-      const sucesso = await Service.POST("efetuarLogin", { user, senha });
+      const sucesso = await Service.POST("efetuarLogin", parametros);
+
+
 
       setLoading(false);
 
       if (sucesso != null) {
-        navigate("/Home");
+        navigate("/home");
         return;
       }
 
       setErro("Usuário ou senha inválidos");
-      
-
->>>>>>> 4957e691dcf9968b671cc51bf959220729c6e3fb
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setErro("Erro ao conectar com o servidor");
       setLoading(false);
-    } 
+    }
   }
 
   return (
     <div className={styles.body}>
-      <div className={styles.Login}>
+      <div className={styles.Login} id="login">
         <h2>Login</h2>
 
         <input
           type="text"
-          placeholder="Digite seu usuário"
+          placeholder="Digite seu nome de usuario"
           value={user}
           onChange={(e) => setUser(e.target.value)}
           className={styles.input}
+          id="usuario"
         />
 
         <input
@@ -74,44 +61,26 @@ function Login() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           className={styles.input}
+          id="senha"
         />
 
         {erro && <p className={styles.erro}>{erro}</p>}
 
-        <button
-          onClick={efetuarLogin}
-          className={styles["botao-entrar"]}
-          disabled={loading}
-        >
-          {loading ? "Entrando..." : "Entrar"}
-        </button>
+      <Button Click={efetuarLogin} texto={loading ? "Entrando..." : "Entrar"} ></Button>
 
         <h3>
-<<<<<<< HEAD
-          <input type="checkbox" id="lembrar" />
-=======
           <input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
->>>>>>> 4957e691dcf9968b671cc51bf959220729c6e3fb
           <label htmlFor="lembrar">Lembrar-me</label>
         </h3>
 
         <div>
-          <a
-            className={styles.link}
-            onClick={() => navigate("/EsqueciSenha")}
-          >
+          <a className={styles.link} onClick={() => navigate("/EsqueciSenha")}>
             Esqueci minha senha
           </a>
         </div>
 
         <div>
-          Não é cadastrado?{" "}
-          <a
-            className={styles.link}
-            onClick={() => navigate("/Cadastro")}
-          >
-            Cadastrar
-          </a>
+          Não é cadastrado? <a href="#">Cadastrar</a>
         </div>
       </div>
     </div>
