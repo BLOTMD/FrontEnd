@@ -41,7 +41,7 @@ export const products: Product[] = [
     name: "Kingston Fury 16 GB DDR5",
     category: "ram",
     brand: "Kingston",
-    price: 349.9,
+    price: 1349.9,
     image: image("RAM", "#16a34a"),
     specs: {
       capacidade: "16 GB",
