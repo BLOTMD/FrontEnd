@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
-import { listarProdutos } from "../../../components/services/ProdutoServices";
+import { listarProdutos, type Produto } from "../../../components/services/ProdutoServices";
 import styles from "./ProdutosLoja.module.css";
-
-type Produto = {
-  codigo: number;
-  nome: string;
-  valor: number;
-};
 
 export default function ProdutosLoja() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -42,7 +36,15 @@ export default function ProdutosLoja() {
           {produtos.map((p) => (
             <div key={p.codigo} className={styles.card}>
               <h3>{p.nome}</h3>
-              <p>R$ {p.valor}</p>
+              <p>{p.Marca}</p>
+              <p>{p.categoria}</p>
+
+              <p>
+                {p.valor.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </p>
 
               <button>Adicionar ao carrinho</button>
             </div>
