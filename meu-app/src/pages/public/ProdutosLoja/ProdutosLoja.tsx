@@ -6,6 +6,8 @@ type Produto = {
   codigo: number;
   nome: string;
   valor: number;
+  marca: string;
+  categoria: "cpu" | "gpu" | "ram" | "motherboard" | "storage" | "psu" | "case" | "perifericos";
 };
 
 export default function ProdutosLoja() {
@@ -32,7 +34,7 @@ export default function ProdutosLoja() {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <h2>Loja de Produtos</h2>
 
       {produtos.length === 0 ? (
@@ -43,6 +45,8 @@ export default function ProdutosLoja() {
             <div key={p.codigo} className={styles.card}>
               <h3>{p.nome}</h3>
               <p>R$ {p.valor}</p>
+              <p>Marca: {p.marca}</p>
+              <p>Categoria: {p.categoria}</p>
 
               <button>Adicionar ao carrinho</button>
             </div>

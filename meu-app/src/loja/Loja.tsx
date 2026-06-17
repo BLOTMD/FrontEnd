@@ -13,7 +13,7 @@ function Loja() {
     if (!normalizedSearch) return products;
 
     return products.filter((product) => {
-      const productText = `${product.name} ${product.brand} ${product.category}`;
+      const productText = `${product.name} ${product.brand} ${product.category} ${product.description}`;
 
       return productText.toLowerCase().includes(normalizedSearch);
     });

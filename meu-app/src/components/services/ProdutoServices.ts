@@ -4,6 +4,8 @@ export type Produto = {
   codigo: number;
   nome: string;
   valor: number;
+  marca: string;
+  categoria: "cpu" | "gpu" | "ram" | "motherboard" | "storage" | "psu" | "case" | "perifericos";
 };
 
 export const produtoService = {
