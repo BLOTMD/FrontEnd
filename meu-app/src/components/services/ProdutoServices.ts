@@ -1,37 +1,48 @@
 import { Service } from "./services";
 
 export type Produto = {
-  codigo: number;
+  codigo: string;
   nome: string;
+  categoria: string;
+  Marca: string;
   valor: number;
-  marca: string;
-  categoria: "cpu" | "gpu" | "ram" | "motherboard" | "storage" | "psu" | "case" | "perifericos";
+  detalhes: {
+    [key: string]: string | number;
+  };
 };
 
+type ProdutoApi = Partial<Produto> & {
+  id?: string | number;
+  marca?: string;
+  price?: number;
+};
+
+type ProdutosApiResposta = ProdutoApi[] | {
+  dados?: ProdutoApi[];
+  content?: ProdutoApi[];
+  produtos?: ProdutoApi[];
+};
+
+function normalizarProduto(produto: ProdutoApi): Produto {
+  return {
+    codigo: String(produto.codigo ?? produto.id ?? ""),
+    nome: produto.nome ?? "",
+    categoria: produto.categoria ?? "",
+    Marca: produto.Marca ?? produto.marca ?? "",
+    valor: Number(produto.valor ?? produto.price ?? 0),
+    detalhes: produto.detalhes ?? {},
+  };
+}
+
 export const produtoService = {
-  // 🔹 LISTAR PRODUTOS
   async listar(): Promise<Produto[]> {
-    return Service.GET<Produto[]>("api/produtos");
-  },
+    const resposta = await Service.GET<ProdutosApiResposta>("api/produtos");
 
-  // 🔹 BUSCAR UM PRODUTO POR ID
-  async buscarPorId(codigo: number): Promise<Produto> {
-    return Service.GET<Produto>(`api/produtos/${codigo}`);
-  },
+    const lista = Array.isArray(resposta)
+      ? resposta
+      : resposta.dados ?? resposta.content ?? resposta.produtos ?? [];
 
-  // 🔹 CRIAR PRODUTO
-  async criar(produto: Omit<Produto, "codigo">) {
-    return Service.POST("api/produtos", produto);
-  },
-
-  // 🔹 ATUALIZAR PRODUTO
-  async atualizar(codigo: number, produto: Partial<Produto>) {
-    return Service.PUT(`api/produtos/${codigo}`, produto);
-  },
-
-  // 🔹 DELETAR PRODUTO
-  async deletar(codigo: number) {
-    return Service.DELETE(`api/produtos/${codigo}`);
+    return lista.map(normalizarProduto);
   },
 };
 

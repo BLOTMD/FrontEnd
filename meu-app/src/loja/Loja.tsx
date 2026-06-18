@@ -1,16 +1,24 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { products } from "../data/products";
+import { listarProdutos, type Produto } from "../components/services/ProdutoServices";
 import styles from "./loja.module.css";
 
 function Loja() {
-  const [search, setSearch] = useState("");
   const { addToCart, cart } = useCart();
+  const [produtos, setProdutos] = useState<Produto[]>([]);
 
-  const filteredProducts = useMemo(() => {
-    const normalizedSearch = search.trim().toLowerCase();
+  useEffect(() => {
+    async function carregarProdutos() {
+      try {
+        const resposta = await listarProdutos();
+        setProdutos(resposta);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    }
 
-    if (!normalizedSearch) return products;
+    carregarProdutos();
+  }, []);
 
     return products.filter((product) => {
       const productText = `${product.name} ${product.brand} ${product.category} ${product.description}`;
@@ -21,6 +29,7 @@ function Loja() {
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
+
   return (
     <section className={styles.loja}>
       <header className={styles.header}>
@@ -29,37 +38,32 @@ function Loja() {
           <p>Escolha pecas para montar seu computador.</p>
         </div>
 
-        <strong className={styles.cartCount}>{totalItems} no carrinho</strong>
+        <strong className={styles.cartCount}>
+          {totalItems} no carrinho
+        </strong>
       </header>
 
-      <label className={styles.search}>
-        <span>Pesquisar</span>
-        <input
-          type="search"
-          placeholder="Nome, marca ou categoria"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-      </label>
-
       <div className={styles.grid}>
-        {filteredProducts.map((product) => (
-          <article className={styles.card} key={product.id}>
-            <img src={product.image} alt={product.name} />
-
+        {produtos.map((produto) => (
+          <article className={styles.card} key={produto.codigo}>
             <div className={styles.cardBody}>
-              <span className={styles.category}>{product.category}</span>
-              <h2>{product.name}</h2>
-              <p>{product.brand}</p>
+              <span className={styles.category}>{produto.categoria}</span>
+
+              <h2>{produto.nome}</h2>
+
+              <p>{produto.Marca}</p>
 
               <strong>
-                {product.price.toLocaleString("pt-BR", {
+                {produto.valor.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
               </strong>
 
-              <button type="button" onClick={() => addToCart(product.id)}>
+              <button
+                type="button"
+                onClick={() => addToCart(produto.codigo)}
+              >
                 Adicionar ao carrinho
               </button>
             </div>
@@ -67,7 +71,7 @@ function Loja() {
         ))}
       </div>
 
-      {filteredProducts.length === 0 && (
+      {produtos.length === 0 && (
         <p className={styles.empty}>Nenhum produto encontrado.</p>
       )}
     </section>

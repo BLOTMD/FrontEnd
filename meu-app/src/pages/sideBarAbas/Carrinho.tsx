@@ -1,6 +1,7 @@
 import { useCart } from "../../context/CartContext";
-import { products } from "../../data/products";
+import { listarProdutos, type Produto } from "../../components/services/ProdutoServices";
 import styles from "./Carrinho.module.css";
+import { useEffect, useState } from "react";
 
 function Carrinho() {
   const {
@@ -8,22 +9,32 @@ function Carrinho() {
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
-    clearCart,
+    clearCart, 
   } = useCart();
 
+
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      const produtosLista = await listarProdutos();
+      setProdutos(produtosLista);
+    };
+    fetchProdutos();
+  }, []);
+
   const cartProducts = cart.map((item) => {
-    const product = products.find((product) => product.id === item.productId);
+    const produtoAchado = produtos.find((produto) => produto.codigo === item.produto);
 
     return {
       ...item,
-      product,
+      produtoAchado,
     };
   });
 
   const total = cartProducts.reduce((sum, item) => {
-    if (!item.product) return sum;
+    if (!item.produtoAchado) return sum;
 
-    return sum + item.product.price * item.quantity;
+    return sum + item.produtoAchado.valor * item.quantidade;
   }, 0);
 
   return (
@@ -36,17 +47,17 @@ function Carrinho() {
 
       <div className={styles.items}>
         {cartProducts.map((item) => {
-          if (!item.product) return null;
+          if (!item.produtoAchado) return null;
 
           return (
-            <article className={styles.item} key={item.productId}>
-              <img src={item.product.image} alt={item.product.name} />
+            <article className={styles.item} key={item.produtoAchado.codigo}>
+              {/* <img src={item.produtoAchado.image} alt={item.produtoAchado.nome} /> */}
 
               <div className={styles.info}>
-                <h2>{item.product.name}</h2>
+                <h2>{item.produtoAchado.nome}</h2>
 
                 <p>
-                  {item.product.price.toLocaleString("pt-BR", {
+                  {item.produtoAchado.valor.toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}
@@ -54,7 +65,7 @@ function Carrinho() {
 
                 <strong>
                   Subtotal:{" "}
-                  {(item.product.price * item.quantity).toLocaleString(
+                  {(item.produtoAchado.valor * item.quantidade).toLocaleString(
                     "pt-BR",
                     {
                       style: "currency",
@@ -68,18 +79,18 @@ function Carrinho() {
                 <div className={styles.quantity}>
                   <button
                     type="button"
-                    aria-label={`Diminuir quantidade de ${item.product.name}`}
-                    onClick={() => decreaseQuantity(item.productId)}
+                    aria-label={`Diminuir quantidade de ${item.produtoAchado.nome}`}
+                    onClick={() => decreaseQuantity(item.produto)}
                   >
                     -
                   </button>
 
-                  <span>{item.quantity}</span>
+                  <span>{item.quantidade}</span>
 
                   <button
                     type="button"
-                    aria-label={`Aumentar quantidade de ${item.product.name}`}
-                    onClick={() => increaseQuantity(item.productId)}
+                    aria-label={`Aumentar quantidade de ${String(item.produtoAchado.nome)}`}
+                    onClick={() => increaseQuantity(item.produto)}
                   >
                     +
                   </button>
@@ -88,7 +99,7 @@ function Carrinho() {
                 <button
                   type="button"
                   className={styles.remove}
-                  onClick={() => removeFromCart(item.productId)}
+                  onClick={() => removeFromCart(item.produto)}
                 >
                   Remover
                 </button>

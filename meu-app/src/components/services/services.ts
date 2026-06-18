@@ -5,7 +5,7 @@
 //      Service.PATCH("api/users/42", { nome: "Ana Lima" })
 //      Service.DELETE("api/users/42")
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "http://localhost:3000" 
 
 // Cabeçalhos padrão enviados em toda requisição
 function defaultHeaders(): HeadersInit {

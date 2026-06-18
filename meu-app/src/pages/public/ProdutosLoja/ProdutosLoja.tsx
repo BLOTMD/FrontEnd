@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarProdutos } from "../../../components/services/ProdutoServices";
+import { listarProdutos, type Produto } from "../../../components/services/ProdutoServices";
 import styles from "./ProdutosLoja.module.css";
 
 type Produto = {
@@ -9,6 +9,7 @@ type Produto = {
   marca: string;
   categoria: "cpu" | "gpu" | "ram" | "motherboard" | "storage" | "psu" | "case" | "perifericos";
 };
+
 
 export default function ProdutosLoja() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -44,9 +45,21 @@ export default function ProdutosLoja() {
           {produtos.map((p) => (
             <div key={p.codigo} className={styles.card}>
               <h3>{p.nome}</h3>
+<<<<<<< HEAD
               <p>R$ {p.valor}</p>
               <p>Marca: {p.marca}</p>
               <p>Categoria: {p.categoria}</p>
+=======
+              <p>{p.Marca}</p>
+              <p>{p.categoria}</p>
+
+              <p>
+                {p.valor.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </p>
+>>>>>>> 127067583bf9b642f61d5b1842940bc7447ebb50
 
               <button>Adicionar ao carrinho</button>
             </div>
