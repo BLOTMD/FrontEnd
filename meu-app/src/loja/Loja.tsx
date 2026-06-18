@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { listarProdutos, type Produto } from "../components/services/ProdutoServices";
+import {
+  listarProdutos,
+  type Produto,
+} from "../components/services/ProdutoServices";
 import styles from "./loja.module.css";
 
 function Loja() {
   const { addToCart, cart } = useCart();
   const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [Pesquisar, setPesquisar] = useState("");
 
   useEffect(() => {
     async function carregarProdutos() {
@@ -20,10 +24,7 @@ function Loja() {
     carregarProdutos();
   }, []);
 
-  const totalItems = cart.reduce(
-    (total, item) => total + item.quantidade,
-    0
-  );
+  const totalItems = cart.reduce((total, item) => total + item.quantidade, 0);
 
   return (
     <section className={styles.loja}>
@@ -33,10 +34,16 @@ function Loja() {
           <p>Escolha pecas para montar seu computador.</p>
         </div>
 
-        <strong className={styles.cartCount}>
-          {totalItems} no carrinho
-        </strong>
+        <strong className={styles.cartCount}>{totalItems} no carrinho</strong>
       </header>
+
+      <input
+        type="text"
+        placeholder="Pesquisar produtos..."
+        className={styles.search}
+        value={Pesquisar}
+        onChange={(e) => setPesquisar(e.target.value)}
+      />
 
       <div className={styles.grid}>
         {produtos.map((produto) => (
@@ -55,10 +62,7 @@ function Loja() {
                 })}
               </strong>
 
-              <button
-                type="button"
-                onClick={() => addToCart(produto.codigo)}
-              >
+              <button type="button" onClick={() => addToCart(produto.codigo)}>
                 Adicionar ao carrinho
               </button>
             </div>
