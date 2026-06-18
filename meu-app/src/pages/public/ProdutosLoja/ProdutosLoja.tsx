@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarProdutos, type Produto } from "../../../components/services/ProdutoServices";
+import { listarProdutos} from "../../../components/services/ProdutoServices";
 import styles from "./ProdutosLoja.module.css";
 
 type Produto = {
@@ -45,12 +45,8 @@ export default function ProdutosLoja() {
           {produtos.map((p) => (
             <div key={p.codigo} className={styles.card}>
               <h3>{p.nome}</h3>
-<<<<<<< HEAD
-              <p>R$ {p.valor}</p>
-              <p>Marca: {p.marca}</p>
-              <p>Categoria: {p.categoria}</p>
-=======
-              <p>{p.Marca}</p>
+
+              <p>{p.marca}</p>
               <p>{p.categoria}</p>
 
               <p>
@@ -59,7 +55,6 @@ export default function ProdutosLoja() {
                   currency: "BRL",
                 })}
               </p>
->>>>>>> 127067583bf9b642f61d5b1842940bc7447ebb50
 
               <button>Adicionar ao carrinho</button>
             </div>
