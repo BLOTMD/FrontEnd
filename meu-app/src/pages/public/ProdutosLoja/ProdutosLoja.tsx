@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { listarProdutos, type Produto } from "../../../components/services/ProdutoServices";
+import { listarProdutos} from "../../../components/services/ProdutoServices";
 import styles from "./ProdutosLoja.module.css";
+
+type Produto = {
+  codigo: number;
+  nome: string;
+  valor: number;
+  marca: string;
+  categoria: "cpu" | "gpu" | "ram" | "motherboard" | "storage" | "psu" | "case" | "perifericos";
+};
+
 
 export default function ProdutosLoja() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -26,7 +35,7 @@ export default function ProdutosLoja() {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <h2>Loja de Produtos</h2>
 
       {produtos.length === 0 ? (
@@ -36,7 +45,8 @@ export default function ProdutosLoja() {
           {produtos.map((p) => (
             <div key={p.codigo} className={styles.card}>
               <h3>{p.nome}</h3>
-              <p>{p.Marca}</p>
+
+              <p>{p.marca}</p>
               <p>{p.categoria}</p>
 
               <p>

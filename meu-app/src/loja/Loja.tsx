@@ -10,6 +10,7 @@ function Loja() {
   const { addToCart, cart } = useCart();
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [Pesquisar, setPesquisar] = useState("");
+  const totalItems = 0;
 
   useEffect(() => {
     async function carregarProdutos() {
@@ -23,8 +24,6 @@ function Loja() {
 
     carregarProdutos();
   }, []);
-
-  const totalItems = cart.reduce((total, item) => total + item.quantidade, 0);
 
   return (
     <section className={styles.loja}>
