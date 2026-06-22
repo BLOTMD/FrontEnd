@@ -33,8 +33,7 @@ function Carrinho() {
 
   const total = cartProducts.reduce((sum, item) => {
     if (!item.produtoAchado) return sum;
-
-    return sum + item.produtoAchado.valor * item.quantidade;
+    return sum + item.produtoAchado.valor * item.quantidadecodigo;
   }, 0);
 
   return (
@@ -65,7 +64,7 @@ function Carrinho() {
 
                 <strong>
                   Subtotal:{" "}
-                  {(item.produtoAchado.valor * item.quantidade).toLocaleString(
+                  {(item.produtoAchado.valor * item.quantidadecodigo).toLocaleString(
                     "pt-BR",
                     {
                       style: "currency",
@@ -85,7 +84,7 @@ function Carrinho() {
                     -
                   </button>
 
-                  <span>{item.quantidade}</span>
+                  <span>{item.quantidadecodigo}</span>
 
                   <button
                     type="button"

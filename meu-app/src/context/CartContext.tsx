@@ -9,7 +9,7 @@ import {
 
 export type CartItem = {
   produto: string;
-  quantidade: number;
+  quantidadecodigo: number;
 };
 
 type CartContextValue = {
@@ -37,8 +37,8 @@ function loadStoredCart(): CartItem[] {
     return parsedCart.filter(
       (item) =>
         typeof item.produto === "string" &&
-        Number.isInteger(item.quantidade) &&
-        item.quantidade > 0,
+        Number.isInteger(item.quantidadecodigo) &&
+        item.quantidadecodigo > 0,
     );
   } catch {
     return [];
@@ -59,18 +59,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existingItem) {
         return currentCart.map((item) =>
           item.produto === productId
-            ? { ...item, quantidade: item.quantidade + 1 }
+            ? { ...item, quantidadecodigo: item.quantidadecodigo + 1 }
             : item,
         );
       }
 
-      return [...currentCart, { produto: productId, quantidade: 1 }];
+      return [...currentCart, { produto: productId, quantidadecodigo: 1 }];
     });
   }
 
   function removeFromCart(productId: string) {
     setCart((currentCart) =>
-      currentCart.filter((item) => item.produto   !== productId),
+      currentCart.filter((item) => item.produto !== productId),
     );
   }
 
@@ -82,9 +82,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCart((currentCart) =>
       currentCart.flatMap((item) => {
         if (item.produto !== productId) return [item];
-        if (item.quantidade <= 1) return [];
+        if (item.quantidadecodigo <= 1) return [];
 
-        return [{ ...item, quantidade: item.quantidade - 1 }];
+        return [{ ...item, quantidadecodigo: item.quantidadecodigo - 1 }];
       }),
     );
   }

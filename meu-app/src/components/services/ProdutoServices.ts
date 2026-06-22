@@ -35,8 +35,9 @@ function normalizarProduto(produto: ProdutoApi): Produto {
 }
 
 export const produtoService = {
-  async listar(): Promise<Produto[]> {
-    const resposta = await Service.GET<ProdutosApiResposta>("api/produtos");
+  async listar(query?: string): Promise<Produto[]> {
+    const params = query?.trim() ? { q: query.trim() } : undefined;
+    const resposta = await Service.GET<ProdutosApiResposta>("api/produtos", params);
 
     const lista = Array.isArray(resposta)
       ? resposta
@@ -46,6 +47,6 @@ export const produtoService = {
   },
 };
 
-export async function listarProdutos(): Promise<Produto[]> {
-  return produtoService.listar();
+export async function listarProdutos(query?: string): Promise<Produto[]> {
+  return produtoService.listar(query?.trim() ? query.trim() : undefined);
 }

@@ -124,6 +124,18 @@
   color: #6b7280;
 }
 
+.pesquisar {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 16px;
+  margin: 20px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
 @media (max-width: 720px) {
   .header {
     flex-direction: column;
