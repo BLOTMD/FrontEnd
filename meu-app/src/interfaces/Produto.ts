@@ -1,9 +1,9 @@
-export interface Produto {
+export interface InterfaceProduto {
     id: string;
     nome: string;
     categoria: string;
-    Marca: string;
-    valor: number;
+    marca: string;
+    price: number;
     detalhes: {
         [key: string]: string | number;
     };

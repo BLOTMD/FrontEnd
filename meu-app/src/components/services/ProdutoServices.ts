@@ -37,7 +37,7 @@ function normalizarProduto(produto: ProdutoApi): Produto {
 export const produtoService = {
   async listar(query?: string): Promise<Produto[]> {
     const params = query?.trim() ? { q: query.trim() } : undefined;
-    const resposta = await Service.GET<ProdutosApiResposta>("api/produtos", params);
+    const resposta = await Service.GET<ProdutosApiResposta>("produto/produtos", params);
 
     const lista = Array.isArray(resposta)
       ? resposta
