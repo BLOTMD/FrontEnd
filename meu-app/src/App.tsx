@@ -8,12 +8,12 @@ import Loja from "./loja/Loja";
 import Comparacao from "./pages/sideBarAbas/Comparacao";
 import Carrinho from "./pages/sideBarAbas/Carrinho";
 import ProdutosLoja from "./pages/public/ProdutosLoja/ProdutosLoja";
+import FazerCadastroDeProduto from "./pages/public/saveproducts/SaveProducts";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
 
@@ -22,6 +22,7 @@ function App() {
         <Route path="/comparacao" element={<Comparacao />} />
         <Route path="/carrinho" element={<Carrinho />} />
          <Route path="/produtos" element={<ProdutosLoja />} />
+         <Route path="/saveProdutos" element={< FazerCadastroDeProduto/>} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
