@@ -1,8 +1,8 @@
 import { useState } from "react";
-import style from "./Cadastro.module.css";
+import style from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { Service } from "../../../component/service/Service";
-import type { CadastroInterface } from "../../../interfaces/Cadastro";
+import type { CadastroInterface } from "../../../interfaces/Register";
 import Button from "../../../component/button/Button";
 
 function Cadastro() {
@@ -21,37 +21,36 @@ function Cadastro() {
   });
 
   async function fazerCadastro() {
-  try {
-    const sucesso = await Service.POST("EfetuarCadastro", usuario);
+    try {
+      const sucesso = await Service.POST("EfetuarCadastro", usuario);
 
-    if (sucesso) {
-      navigate("/login");
+      if (sucesso) {
+        navigate("/login");
+      }
+    } catch (error) {
+      setMensagem("Erro ao realizar cadastro");
+      console.error(error);
     }
-  } catch (error) {
-    setMensagem("Erro ao realizar cadastro");
-    console.error(error);
   }
-}
   function validarFormulario() {
-    if (!usuario.user.trim()) return setMensagem("Informe seu nome"), false;
-    if (!usuario.email.trim()) return setMensagem("Informe seu email"), false;
-    if (!usuario.senha.trim()) return setMensagem("Informe sua senha"), false;
-    if (!usuario.confirmarSenha.trim()) return setMensagem("Confirme sua senha"), false;
+    if (!usuario.user.trim()) return (setMensagem("Informe seu nome"), false);
+    if (!usuario.email.trim()) return (setMensagem("Informe seu email"), false);
+    if (!usuario.senha.trim()) return (setMensagem("Informe sua senha"), false);
+    if (!usuario.confirmarSenha.trim())
+      return (setMensagem("Confirme sua senha"), false);
 
     if (usuario.senha !== usuario.confirmarSenha)
-      return setMensagem("As senhas não coincidem"), false;
+      return (setMensagem("As senhas não coincidem"), false);
 
     if (!usuario.DataNascimento)
-      return setMensagem("Informe sua data de nascimento"), false;
+      return (setMensagem("Informe sua data de nascimento"), false);
 
     if (!usuario.Telefone.trim())
-      return setMensagem("Informe seu telefone"), false;
+      return (setMensagem("Informe seu telefone"), false);
 
-    if (!usuario.genero)
-      return setMensagem("Selecione um gênero"), false;
+    if (!usuario.genero) return (setMensagem("Selecione um gênero"), false);
 
-    if (!usuario.termos)
-      return setMensagem("Aceite os termos de uso"), false;
+    if (!usuario.termos) return (setMensagem("Aceite os termos de uso"), false);
 
     setMensagem("");
     return true;
@@ -68,18 +67,14 @@ function Cadastro() {
           className={style.input}
           placeholder="Nome Completo"
           value={usuario.user}
-          onChange={(e) =>
-            setUsuario({ ...usuario, user: e.target.value })
-          }
+          onChange={(e) => setUsuario({ ...usuario, user: e.target.value })}
         />
 
         <input
           className={style.input}
           placeholder="Email"
           value={usuario.email}
-          onChange={(e) =>
-            setUsuario({ ...usuario, email: e.target.value })
-          }
+          onChange={(e) => setUsuario({ ...usuario, email: e.target.value })}
         />
 
         <input
@@ -87,9 +82,7 @@ function Cadastro() {
           type="password"
           placeholder="Senha"
           value={usuario.senha}
-          onChange={(e) =>
-            setUsuario({ ...usuario, senha: e.target.value })
-          }
+          onChange={(e) => setUsuario({ ...usuario, senha: e.target.value })}
         />
 
         <input
@@ -116,17 +109,13 @@ function Cadastro() {
           type="tel"
           placeholder="Telefone"
           value={usuario.Telefone}
-          onChange={(e) =>
-            setUsuario({ ...usuario, Telefone: e.target.value })
-          }
+          onChange={(e) => setUsuario({ ...usuario, Telefone: e.target.value })}
         />
 
         <select
           className={style.input}
           value={usuario.genero}
-          onChange={(e) =>
-            setUsuario({ ...usuario, genero: e.target.value })
-          }
+          onChange={(e) => setUsuario({ ...usuario, genero: e.target.value })}
         >
           <option value="">Selecione um gênero</option>
           <option value="Masculino">Masculino</option>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./SaveProducts.module.css";
 import { Service } from "../../../component/service/Service";
 import Button from "../../../component/button/Button";
-import type { InterfaceProduto } from "../../../interfaces/Produto";
+import type { InterfaceProduto } from "../../../interfaces/Products";
 
 function NovoProduto() {
   const [mensagem, setMensagem] = useState("");
@@ -18,20 +18,17 @@ function NovoProduto() {
 
   async function FazerCadastroDeProduto() {
     try {
-      const sucesso = await Service.POST("produto/saveProdutos", produto);
+      await Service.POST("produto/saveProdutos", produto);
 
-      if (sucesso) {
-        setMensagem("Produto cadastrado com sucesso!");
-
-        setProduto({
-          id: "",
-          nome: "",
-          categoria: "",
-          marca: "",
-          price: 0,
-          detalhes: {},
-        });
-      }
+      setMensagem("Produto cadastrado com sucesso!");
+      setProduto({
+        id: "",
+        nome: "",
+        categoria: "",
+        marca: "",
+        price: 0,
+        detalhes: {},
+      });
     } catch (error) {
       setMensagem("Erro ao cadastrar produto");
       console.error(error);

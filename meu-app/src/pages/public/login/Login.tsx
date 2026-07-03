@@ -22,18 +22,16 @@ function Login() {
         "senha": senha,
       };
 
-      const sucesso = await Service.POST("efetuarLogin", parametros);
-
-
+      const retorno = await Service.POST("efetuarLogin", parametros);
 
       setLoading(false);
 
-      if (sucesso != null) {
+      if (retorno && (retorno as any).sucesso === true) {
         navigate("/home");
         return;
       }
 
-      setErro("Usuário ou senha inválidos");
+      setErro((retorno as any)?.mensagem || "Usuário ou senha inválidos");
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setErro("Erro ao conectar com o servidor");

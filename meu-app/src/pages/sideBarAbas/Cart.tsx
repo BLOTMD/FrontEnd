@@ -1,6 +1,6 @@
 import { useCart } from "../../context/CartContext";
 import { listarProdutos, type Produto } from "../../components/services/ProdutoServices";
-import styles from "./Carrinho.module.css";
+import styles from "./Cart.module.css";
 import { useEffect, useState } from "react";
 
 function Carrinho() {
