@@ -7,7 +7,7 @@
 
 const BASE_URL = "http://localhost:3000"
 
-// Cabeçalhos padrão enviados em toda requisição
+
 function defaultHeaders(): HeadersInit {
   const token = localStorage.getItem("token")
   return {
@@ -16,13 +16,30 @@ function defaultHeaders(): HeadersInit {
   }
 }
 
-// Trata a resposta: lança erro se status >= 400
+function extractErrorMessage(data: unknown, fallback: string) {
+  if (typeof data === "string") return data || fallback
+
+  if (data && typeof data === "object") {
+    const response = data as { mensagem?: unknown; message?: unknown; erro?: unknown; error?: unknown }
+    const message = response.mensagem ?? response.message ?? response.erro ?? response.error
+
+    if (typeof message === "string" && message.trim()) return message
+  }
+
+  return fallback
+}
+
+
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
-    const message = await res.text().catch(() => `HTTP ${res.status}`)
-    throw new Error(message || `HTTP ${res.status}`)
+    const contentType = res.headers.get("content-type") ?? ""
+    const data = contentType.includes("application/json")
+      ? await res.json().catch(() => null)
+      : await res.text().catch(() => "")
+
+    throw new Error(extractErrorMessage(data, `HTTP ${res.status}`))
   }
-  // 204 No Content não tem corpo
+
   if (res.status === 204) return undefined as T
   return res.json() as Promise<T>
 }

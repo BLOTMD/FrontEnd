@@ -12,8 +12,7 @@ const menuItens: MenuItems[] = [
   { label: "Inicio", path: "/" },
   { label: "Cadastro", path: "/cadastro" },
   { label: "Usuario", path: "/usuario" },
-
-  
+  { label: "Login", path: "/login" },
 ];
 
 const Menu: React.FC = () => {
@@ -41,7 +40,7 @@ const Menu: React.FC = () => {
 
           <p>Peças, computadores gamer com os melhores preços.</p>
 
-          <button className={styles.AcessoButton} onClick={() => navigate("/loja")}>
+          <button className={styles.AcessoButton} onClick={() => navigate("/login")}>
             Acessar
           </button>
         </div>

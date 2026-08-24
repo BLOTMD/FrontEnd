@@ -5,6 +5,12 @@ import { Service } from "../../../components/services/services";
 import type { LoginInterface } from "../../../interfaces/login.ts";
 import Button from "../../../component/button/Button";
 
+type LoginResposta = {
+  sucesso: boolean;
+  mensagem: string;
+  token: string;
+};
+
 function Login() {
   const [user, setUser] = useState("");
   const [senha, setSenha] = useState("");
@@ -13,30 +19,34 @@ function Login() {
   const navigate = useNavigate();
 
   async function efetuarLogin() {
+    if (!user.trim() || !senha.trim()) {
+      setErro("Preencha usuário e senha");
+      return;
+    }
+
     setLoading(true);
     setErro("");
 
     try {
       const parametros: LoginInterface = {
-        "user": user,
-        "senha": senha,
+        user,
+        senha,
       };
 
-      const sucesso = await Service.POST("efetuarLogin", parametros);
+      const resposta: LoginResposta = await Service.POST<LoginInterface, LoginResposta>("efetuarLogin", parametros);
 
+      localStorage.setItem("token", resposta.token);
 
-
-      setLoading(false);
-
-      if (sucesso != null) {
-        navigate("/home");
+      if (resposta.sucesso) {
+        navigate("/loja");
         return;
       }
 
-      setErro("Usuário ou senha inválidos");
+      setErro(resposta.mensagem || "Usuário ou senha inválidos");
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      setErro("Erro ao conectar com o servidor");
+      setErro(error instanceof Error ? error.message : "Erro ao conectar com o servidor");
+    } finally {
       setLoading(false);
     }
   }
@@ -48,7 +58,7 @@ function Login() {
 
         <input
           type="text"
-          placeholder="Digite seu nome de usuario"
+          placeholder="Digite seu nome de usuário"
           value={user}
           onChange={(e) => setUser(e.target.value)}
           className={styles.input}
@@ -66,7 +76,7 @@ function Login() {
 
         {erro && <p className={styles.erro}>{erro}</p>}
 
-      <Button Click={efetuarLogin} texto={loading ? "Entrando..." : "Entrar"} ></Button>
+        <Button Click={efetuarLogin} texto={loading ? "Entrando..." : "Entrar"} />
 
         <h3>
           <input type="checkbox" id="lembrar" name="lembrar" value="Lembrar" />
@@ -80,7 +90,10 @@ function Login() {
         </div>
 
         <div>
-          Não é cadastrado? <a href="#">Cadastrar</a>
+          Não é cadastrado?{" "}
+          <a className={styles.link} onClick={() => navigate("/cadastro")}>
+            Cadastrar
+          </a>
         </div>
       </div>
     </div>

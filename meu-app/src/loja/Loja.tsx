@@ -5,6 +5,7 @@ import {
   type Produto,
 } from "../components/services/ProdutoServices";
 import styles from "./loja.module.css";
+import Card from "../component/card/Card";
 
 function Loja() {
   const { addToCart, cart } = useCart();
@@ -65,31 +66,18 @@ function Loja() {
       ) : (
         <div className={styles.grid}>
           {produtosFiltrados.map((produto) => (
-            <article className={styles.card} key={produto.codigo}>
-              <div className={styles.cardBody}>
-                <span className={styles.category}>
-                  {produto.categoria}
-                </span>
-
-                <h2>{produto.nome}</h2>
-
-                <p>{produto.Marca}</p>
-
-                <strong>
-                  {produto.valor.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </strong>
-
-                <button
-                  type="button"
-                  onClick={() => addToCart(produto.codigo)}
-                >
-                  Adicionar ao carrinho
-                </button>
-              </div>
-            </article>
+            <Card
+              key={produto.codigo}
+              titulo={produto.nome}
+              marca={produto.Marca}
+              categoria={produto.categoria}
+              valor={produto.valor.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+              textoBotao="Adicionar ao carrinho"
+              onClick={() => addToCart(produto.codigo)}
+            />
           ))}
         </div>
       )}

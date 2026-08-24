@@ -28,11 +28,23 @@ h2 {
     width: 280px;
     padding: 12px;
     margin-top: 10px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 10px;
     background-color:#3a3a3a;
+    color: white;
     box-sizing: border-box;
     outline: none;
+}
+
+.inputErro {
+    border-color: #ff4d4d;
+}
+
+.erroCampo {
+    width: 280px;
+    color: #ff8a8a;
+    font-size: 12px;
+    margin-top: 4px;
 }
 
 select.input {
@@ -75,4 +87,5 @@ select.input {
     color: #ff4d4d;
     margin-bottom: 10px;
     font-size: 14px;
+    text-align: center;
 }

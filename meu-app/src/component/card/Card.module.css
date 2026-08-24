@@ -1,0 +1,74 @@
+.card {
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+}
+
+.imagem {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  display: block;
+  background: #f3f4f6;
+}
+
+.semImagem {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 2;
+  background: #f3f4f6;
+  color: #4f46e5;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.conteudo {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.categoria {
+  width: fit-content;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.marca {
+  margin: 0;
+  color: #6b7280;
+}
+
+.valor {
+  color: #111827;
+  font-size: 18px;
+}
+
+.botao {
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 11px 14px;
+}
+
+.botao:hover {
+  background: #1d4ed8;
+}
