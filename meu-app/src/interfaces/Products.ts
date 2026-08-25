@@ -1,4 +1,5 @@
 export interface InterfaceProduto {
+    img?: string,
     id: string;
     nome: string;
     categoria: string;

@@ -1,6 +1,7 @@
 import { Service } from "./services";
 
 export type Produto = {
+  img?:string,
   codigo: string;
   nome: string;
   categoria: string;

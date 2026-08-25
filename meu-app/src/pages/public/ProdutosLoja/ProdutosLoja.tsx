@@ -35,6 +35,13 @@ export default function ProdutosLoja() {
         <div className={styles.grid}>
           {produtos.map((p) => (
             <div key={p.codigo} className={styles.card}>
+
+
+                        <img
+                  src={p.img}
+                  alt={p.nome}
+                />
+
               <h3>{p.nome}</h3>
               <p>{p.Marca}</p>
               <p>{p.categoria}</p>
