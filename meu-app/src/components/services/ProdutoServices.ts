@@ -6,6 +6,8 @@ export type Produto = {
   categoria: string;
   Marca: string;
   valor: number;
+  estoque: number;
+  imagem?: string;
   detalhes: {
     [key: string]: string | number;
   };
@@ -13,8 +15,20 @@ export type Produto = {
 
 type ProdutoApi = Partial<Produto> & {
   id?: string | number;
+  id_produto?: string | number;
+  tx_nome?: string;
   marca?: string;
+  tx_marca?: string;
   price?: number;
+  nr_preco?: number | string;
+  nr_estoque?: number | string;
+  cd_categoria?: string | number;
+  tx_categoria?: string;
+  tx_nome_categoria?: string;
+  categoria_nome?: string;
+  tx_caminho?: string;
+  caminhoImagem?: string;
+  imagemUrl?: string;
 };
 
 type ProdutosApiResposta = ProdutoApi[] | {
@@ -25,11 +39,20 @@ type ProdutosApiResposta = ProdutoApi[] | {
 
 function normalizarProduto(produto: ProdutoApi): Produto {
   return {
-    codigo: String(produto.codigo ?? produto.id ?? ""),
-    nome: produto.nome ?? "",
-    categoria: produto.categoria ?? "",
-    Marca: produto.Marca ?? produto.marca ?? "",
-    valor: Number(produto.valor ?? produto.price ?? 0),
+    codigo: String(produto.codigo ?? produto.id_produto ?? produto.id ?? ""),
+    nome: produto.nome ?? produto.tx_nome ?? "",
+    categoria: String(
+      produto.categoria ??
+        produto.categoria_nome ??
+        produto.tx_nome_categoria ??
+        produto.tx_categoria ??
+        produto.cd_categoria ??
+        "Pecas",
+    ),
+    Marca: produto.Marca ?? produto.marca ?? produto.tx_marca ?? "",
+    valor: Number(produto.valor ?? produto.nr_preco ?? produto.price ?? 0),
+    estoque: Number(produto.estoque ?? produto.nr_estoque ?? 0),
+    imagem: produto.imagem ?? produto.imagemUrl ?? produto.caminhoImagem ?? produto.tx_caminho,
     detalhes: produto.detalhes ?? {},
   };
 }

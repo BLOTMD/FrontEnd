@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./Cadastro.module.css";
 import { useNavigate } from "react-router-dom";
-import { Service } from "../../../component/service/Service";
+import { Service } from "../../../components/services/services";
 import type { CadastroInterface } from "../../../interfaces/Cadastro";
 import Button from "../../../component/button/Button";
 
@@ -47,8 +47,33 @@ function Cadastro() {
     setLoading(true);
     setMensagem("");
 
+    const payload = {
+      user: usuario.user.trim(),
+      email: usuario.email.trim(),
+      senha: usuario.senha,
+      DataNascimento: usuario.DataNascimento,
+      Telefone: usuario.Telefone.trim(),
+      genero: usuario.genero,
+    };
+
+    const rotasTentativas = ["efetuarCadastro", "EfetuarCadastro"];
+
     try {
-      const resposta = await Service.POST<CadastroInterface, CadastroResposta>("EfetuarCadastro", usuario);
+      let resposta: CadastroResposta | null = null;
+      let ultimoErro: unknown = null;
+
+      for (const rota of rotasTentativas) {
+        try {
+          resposta = await Service.POST<typeof payload, CadastroResposta>(rota, payload);
+          break;
+        } catch (error) {
+          ultimoErro = error;
+        }
+      }
+
+      if (!resposta) {
+        throw ultimoErro ?? new Error("Erro ao realizar cadastro");
+      }
 
       if (resposta.sucesso) {
         navigate("/login");

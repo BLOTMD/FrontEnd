@@ -4,14 +4,16 @@ import {
   listarProdutos,
   type Produto,
 } from "../components/services/ProdutoServices";
-import styles from "./loja.module.css";
+import { shopInterface } from "../components/ui/interfaceObjects";
 import Card from "../component/card/Card";
+import styles from "./loja.module.css";
 
 function Loja() {
   const { addToCart, cart } = useCart();
 
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [pesquisar, setPesquisar] = useState("");
+  const [categoriaAtiva, setCategoriaAtiva] = useState("Todos");
   const [loading, setLoading] = useState(true);
 
   const totalItems = cart.reduce(
@@ -35,34 +37,66 @@ function Loja() {
   }, []);
 
   const produtosFiltrados = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(pesquisar.toLowerCase())
+    shopInterface.combinarBusca(produto, pesquisar, categoriaAtiva)
   );
 
   return (
     <section className={styles.loja}>
-      <header className={styles.header}>
-        <div>
-          <h1>Loja EasyPC</h1>
-          <p>Escolha peças para montar seu computador.</p>
+      <header className={styles.hero}>
+        <div className={styles.heroText}>
+          <span className={styles.eyebrow}>EasyPC Store</span>
+          <h1>Monte seu setup com pecas escolhidas sem dor de cabeca.</h1>
+          <p>
+            Busque componentes, confira estoque e mande tudo para o carrinho em
+            uma loja pronta para conversar com o seu banco de dados.
+          </p>
+
+          <div className={styles.highlights}>
+            {shopInterface.destaques.map((item) => (
+              <span key={item.rotulo}>
+                <strong>{item.valor}</strong>
+                {item.rotulo}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <strong className={styles.cartCount}>
-          {totalItems} no carrinho
-        </strong>
+        <div className={styles.cartPanel}>
+          <span>Carrinho</span>
+          <strong>{totalItems}</strong>
+          <p>{totalItems === 1 ? "item separado" : "itens separados"}</p>
+        </div>
       </header>
 
-      <input
-        type="text"
-        placeholder="Pesquisar produtos..."
-        className={styles.pesquisar}
-        value={pesquisar}
-        onChange={(e) => setPesquisar(e.target.value)}
-      />
+      <div className={styles.toolbar}>
+        <label className={styles.search}>
+          <span>Pesquisar produtos</span>
+          <input
+            type="text"
+            placeholder="Ex: RTX, Ryzen, SSD..."
+            value={pesquisar}
+            onChange={(e) => setPesquisar(e.target.value)}
+          />
+        </label>
+
+        <div className={styles.categories} aria-label="Categorias">
+          {shopInterface.categorias.map((categoria) => (
+            <button
+              key={categoria}
+              type="button"
+              className={categoriaAtiva === categoria ? styles.activeCategory : ""}
+              onClick={() => setCategoriaAtiva(categoria)}
+            >
+              {categoria}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {loading ? (
-        <p className={styles.loading}>Carregando produtos...</p>
+        <div className={styles.state}>Carregando produtos...</div>
       ) : produtosFiltrados.length === 0 ? (
-        <p className={styles.empty}>Nenhum produto encontrado.</p>
+        <div className={styles.state}>Nenhum produto encontrado.</div>
       ) : (
         <div className={styles.grid}>
           {produtosFiltrados.map((produto) => (
@@ -71,12 +105,13 @@ function Loja() {
               titulo={produto.nome}
               marca={produto.Marca}
               categoria={produto.categoria}
-              valor={produto.valor.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              })}
-              textoBotao="Adicionar ao carrinho"
+              valor={shopInterface.formatarMoeda(produto.valor)}
+              imagem={produto.imagem}
+              status={shopInterface.statusEstoque(produto)}
+              detalhe={`${produto.estoque} em estoque`}
+              textoBotao={produto.estoque <= 0 ? "Indisponivel" : "Adicionar"}
               onClick={() => addToCart(produto.codigo)}
+              disabled={produto.estoque <= 0}
             />
           ))}
         </div>
