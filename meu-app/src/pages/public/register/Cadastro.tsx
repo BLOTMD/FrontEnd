@@ -51,12 +51,21 @@ function Cadastro() {
       user: usuario.user.trim(),
       email: usuario.email.trim(),
       senha: usuario.senha,
+      confirmarSenha: usuario.confirmarSenha,
       DataNascimento: usuario.DataNascimento,
       Telefone: usuario.Telefone.trim(),
       genero: usuario.genero,
+      termos: usuario.termos,
     };
 
-    const rotasTentativas = ["efetuarCadastro", "EfetuarCadastro"];
+    const rotasTentativas = [
+      "login/EfetuarCadastro",
+      "login/cadastro",
+      "login/efetuarCadastro",
+      "EfetuarCadastro",
+      "efetuarCadastro",
+      "cadastro",
+    ];
 
     try {
       let resposta: CadastroResposta | null = null;

@@ -33,7 +33,7 @@ function Login() {
         senha,
       };
 
-      const resposta: LoginResposta = await Service.POST<LoginInterface, LoginResposta>("efetuarLogin", parametros);
+      const resposta: LoginResposta = await Service.POST<LoginInterface, LoginResposta>("login/efetuarLogin", parametros);
 
       localStorage.setItem("token", resposta.token);
 
