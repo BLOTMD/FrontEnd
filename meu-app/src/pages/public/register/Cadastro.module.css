@@ -1,91 +1,111 @@
 .body {
-    background-color: #1e1e1e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(16px, 4vw, 40px);
+  background: #000;
+  font-family: Arial, sans-serif;
 }
 
 .cadastrar {
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    border-radius: 15px;
-    width: 320px;
-    border: 1px solid #4f46e5;
-    background-color: #2e2e2e;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 440px);
+  padding: clamp(22px, 5vw, 36px);
+  border: 1px solid #4f46e5;
+  border-radius: 15px;
+  background: #222;
 }
 
-h2 {
-    color: white;
-    font-size: 20px;
-    margin-bottom: 10px;
+.cadastrar h2 {
+  margin: 0 0 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.input,
+.erroCampo,
+.botao,
+.checkboxGenero {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input {
-    width: 280px;
-    padding: 12px;
-    margin-top: 10px;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    background-color:#3a3a3a;
-    color: white;
-    box-sizing: border-box;
-    outline: none;
+  min-height: 44px;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #3a3a3a;
+  color: white;
+  outline: none;
+}
+
+.input:focus-visible {
+  border-color: #8b83ff;
 }
 
 .inputErro {
-    border-color: #ff4d4d;
+  border-color: #ff4d4d;
 }
 
 .erroCampo {
-    width: 280px;
-    color: #ff8a8a;
-    font-size: 12px;
-    margin-top: 4px;
+  color: #ff8a8a;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 select.input {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .botao {
-    width: 280px;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: 12px;
+  margin-top: 20px;
+  background: #4f46e5;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .botao:hover {
-    background-color: #3731a3;
+  background: #3731a3;
 }
 
 .checkboxGenero {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: white;
-    margin-top: 15px;
-    width: 280px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  margin-top: 15px;
+}
+
+.checkboxGenero input {
+  flex: 0 0 auto;
 }
 
 .link {
-    color: #4f46e5;
-    cursor: pointer;
-    text-decoration: none;
+  color: #a5a0ff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login {
+  margin-top: 16px;
+  color: #eee;
+  text-align: center;
 }
 
 .aviso {
-    color: #ff4d4d;
-    margin-bottom: 10px;
-    font-size: 14px;
-    text-align: center;
+  color: #ff7777;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
 }

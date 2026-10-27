@@ -9,6 +9,7 @@ import Comparacao from "./pages/sideBarAbas/Comparacao";
 import Carrinho from "./pages/sideBarAbas/Carrinho";
 import ProdutosLoja from "./pages/public/ProdutosLoja/ProdutosLoja";
 import FazerCadastroDeProduto from "./pages/public/saveproducts/SaveProducts";
+import RemoveProduct from "./pages/public/saveproducts/RemoveProduct";
 import Seguranca from "./component/menu/Segurança";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/produtos" element={<ProdutosLoja />} />
         <Route path="/saveProdutos" element={<FazerCadastroDeProduto />} />
+        <Route path="/removerProduto" element={<RemoveProduct />} />
       </Route>
 
       <Route path="/" element={<Login />} />

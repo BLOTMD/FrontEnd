@@ -105,10 +105,11 @@ export const Service = {
   },
 
   // DELETE — sem corpo, só a URL com o id
-  async DELETE<TResponse = void>(path: string): Promise<TResponse> {
+  async DELETE<TResponse = void, TBody = unknown>(path: string, body?: TBody): Promise<TResponse> {
     const res = await fetch(`${BASE_URL}/${path}`, {
       method: "DELETE",
       headers: defaultHeaders(),
+      body: body ? JSON.stringify(body) : undefined,
     })
     return handleResponse<TResponse>(res)
   },

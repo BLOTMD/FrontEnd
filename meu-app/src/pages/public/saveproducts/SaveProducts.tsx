@@ -3,6 +3,7 @@ import style from "./SaveProducts.module.css";
 import { Service } from "../../../component/service/Service";
 import Button from "../../../component/button/Button";
 import type { InterfaceProduto } from "../../../interfaces/Produto";
+import { Link } from "react-router-dom";
 
 function NovoProduto() {
   const [mensagem, setMensagem] = useState("");
@@ -148,6 +149,7 @@ function NovoProduto() {
             }
           }}
         />
+        <Link className={style.link} to="/removerProduto">Tirar produto da loja</Link>
       </div>
     </div>
   );
