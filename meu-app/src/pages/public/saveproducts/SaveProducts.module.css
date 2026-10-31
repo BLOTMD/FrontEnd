@@ -2,8 +2,11 @@
     background-color: #1e1e1e;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
+    height: auto;
+    padding: 32px 16px;
+    box-sizing: border-box;
     font-family: Arial;
 }
 
@@ -12,7 +15,8 @@
     flex-direction: column;
     padding: 30px;
     border-radius: 15px;
-    width: 320px;
+    width: min(100%, 460px);
+    box-sizing: border-box;
     border: 1px solid #4f46e5;
     background-color: #2e2e2e;
     align-items: center;
@@ -25,7 +29,7 @@ h2 {
 }
 
 .input {
-    width: 280px;
+    width: 100%;
     padding: 12px;
     margin-top: 10px;
     border: none;
@@ -35,12 +39,64 @@ h2 {
     outline: none;
 }
 
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    margin-top: 10px;
+    color: #e5e7eb;
+    font-size: 14px;
+}
+
+.detalhes {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 18px 0 0;
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    color: white;
+}
+
+.linhaDetalhe {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.adicionarDetalhe,
+.removerDetalhe {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    background: #454545;
+    cursor: pointer;
+}
+
+.resumoProduto {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #242424;
+    color: #e5e7eb;
+    overflow-wrap: anywhere;
+}
+
 select.input {
     cursor: pointer;
 }
 
 .botao {
-    width: 280px;
+    width: 100%;
     padding: 12px;
     margin-top: 20px;
     background-color: #4f46e5;
@@ -69,10 +125,16 @@ select.input {
     color: #4f46e5;
     cursor: pointer;
     text-decoration: none;
+    margin-top: 14px;
 }
 
 .aviso {
     color: #ff4d4d;
     margin-bottom: 10px;
     font-size: 14px;
+}
+
+@media (max-width: 420px) {
+    .cadastrar { padding: 22px 16px; }
+    .linhaDetalhe { grid-template-columns: 1fr; }
 }

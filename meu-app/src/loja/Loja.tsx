@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useCart } from "../context/CartContext";
 import {
   listarProdutos,
@@ -13,6 +13,7 @@ function Loja() {
 
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [pesquisar, setPesquisar] = useState("");
+  const [pesquisaAplicada, setPesquisaAplicada] = useState("");
   const [categoriaAtiva, setCategoriaAtiva] = useState("Todos");
   const [loading, setLoading] = useState(true);
 
@@ -36,8 +37,22 @@ function Loja() {
     carregarProdutos();
   }, []);
 
+  async function buscarProdutos(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const resultado = await listarProdutos(pesquisar);
+      setProdutos(resultado);
+      setPesquisaAplicada(pesquisar.trim());
+    } catch (error) {
+      console.error("Erro ao pesquisar produtos:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const produtosFiltrados = produtos.filter((produto) =>
-    shopInterface.combinarBusca(produto, pesquisar, categoriaAtiva)
+    shopInterface.combinarBusca(produto, pesquisaAplicada, categoriaAtiva)
   );
 
   return (
@@ -69,15 +84,20 @@ function Loja() {
       </header>
 
       <div className={styles.toolbar}>
-        <label className={styles.search}>
-          <span>Pesquisar produtos</span>
-          <input
-            type="text"
-            placeholder="Ex: RTX, Ryzen, SSD..."
-            value={pesquisar}
-            onChange={(e) => setPesquisar(e.target.value)}
-          />
-        </label>
+        <form className={styles.searchForm} onSubmit={buscarProdutos}>
+          <label className={styles.search}>
+            <span>Pesquisar produtos</span>
+            <input
+              type="search"
+              placeholder="Ex: RTX, Ryzen, SSD..."
+              value={pesquisar}
+              onChange={(e) => setPesquisar(e.target.value)}
+            />
+          </label>
+          <button className={styles.searchButton} type="submit" disabled={loading}>
+            {loading ? "Buscando..." : "Pesquisar"}
+          </button>
+        </form>
 
         <div className={styles.categories} aria-label="Categorias">
           {shopInterface.categorias.map((categoria) => (
